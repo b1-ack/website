@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>B1ack - Technical Work</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-color: #ffffff;
+            --text-muted: #9ca3af;
+            --card-bg: #0a0a0a;
+            --card-border: rgba(255, 255, 255, 0.1);
+            --card-shadow: rgba(0, 0, 0, 0.5);
+            --btn-primary-bg: #ffffff;
+            --btn-primary-text: #000000;
+            --btn-secondary-bg: rgba(255, 255, 255, 0.05);
+            --btn-secondary-border: rgba(255, 255, 255, 0.1);
+            --btn-secondary-text: #ffffff;
+            --grid-bg: #0a0a0a;
+            --grid-line: rgba(255, 255, 255, 0.1);
+            --game-over-bg: rgba(0, 0, 0, 0.7);
+            --game-over-text: #ffffff;
+        }
+        [data-theme="light"] {
+            --bg-color: #fafafa;
+            --text-color: #111827;
+            --text-muted: #4b5563;
+            --card-bg: #ffffff;
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: rgba(0, 0, 0, 0.1);
+            --btn-primary-bg: #111827;
+            --btn-primary-text: #ffffff;
+            --btn-secondary-bg: rgba(0, 0, 0, 0.04);
+            --btn-secondary-border: rgba(0, 0, 0, 0.08);
+            --btn-secondary-text: #111827;
+            --grid-bg: #f3f4f6;
+            --grid-line: rgba(0, 0, 0, 0.08);
+            --game-over-bg: rgba(255, 255, 255, 0.85);
+            --game-over-text: #111827;
+        }
+        @font-face {
+            font-family: 'B1ackFont';
+            src: url('font.otf') format('opentype');
+            font-display: swap;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        .font-b1ack {
+            font-family: 'B1ackFont', sans-serif;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#050505',
+                        card: '#0a0a0a',
+                        'card-hover': '#111111',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body
+    class="min-h-screen flex flex-col items-center justify-center selection:bg-white selection:text-black overflow-x-hidden relative p-6 transition-colors duration-300">
+    
+    <!-- Theme toggle button -->
+    <button id="themeToggle" 
+        class="fixed top-6 right-6 z-50 w-10 h-10 rounded-full bg-[var(--card-bg)] border border-[var(--card-border)] flex items-center justify-center cursor-pointer hover:scale-110 transition-all shadow-lg"
+        title="Toggle theme">
+        <svg id="themeIconDark" class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+        <svg id="themeIconLight" class="w-5 h-5 text-black hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+    </button>
+
+    <div class="relative z-10 flex flex-col lg:flex-row gap-8 max-w-6xl w-full">
+        <div
+            class="flex-1 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-[2.5rem] p-10 md:p-12 text-center shadow-[0_0_50px_var(--card-shadow)] animate-fade-in-up flex flex-col justify-center transition-colors duration-300">
+
+            <div class="relative z-10">
+
+                <h1 class="text-3xl md:text-4xl font-bold mb-6 tracking-tight text-[var(--text-color)] transition-colors duration-300">
+                    Technical Work
+                </h1>
+
+                <p class="text-[var(--text-muted)] text-base mb-4 leading-relaxed font-medium transition-colors duration-300">
+                    We apologize
+                </p>
+
+                <p class="text-[var(--text-muted)] text-sm mb-4 leading-relaxed font-medium transition-colors duration-300">
+                    Site maintained by <a href="https://b1ack.net"
+                        class="text-[var(--text-color)] font-bold hover:underline transition-all">b1ack.net</a>
+                </p>
+
+                <p class="text-[var(--text-muted)] text-sm mb-8 leading-relaxed font-medium transition-colors duration-300">
+                    We are already working on fixing the problem and will fix everything soon, but for now you can
+                    play!
+                </p>
+
+                <div class="pt-8 border-t border-[var(--card-border)] transition-colors duration-300">
+                    <p class="text-[var(--text-muted)] text-sm mb-3 font-medium transition-colors duration-300">Support email:</p>
+                    <a href="mailto:support@b1ack.net"
+                        class="inline-block bg-[var(--btn-primary-bg)] text-[var(--btn-primary-text)] px-8 py-3 rounded-full font-bold hover:opacity-90 transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_var(--tile-shadow)]">
+                        support@b1ack.net
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-1 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-[2.5rem] p-8 md:p-10 shadow-[0_0_50px_var(--card-shadow)] animate-fade-in-up transition-colors duration-300"
+            style="animation-delay: 0.1s;">
+
+            <div class="relative z-10">
+                <h2 class="text-2xl font-bold text-center mb-6 tracking-tight">2048</h2>
+
+                <div class="flex flex-col items-center gap-4">
+                    <canvas id="gameCanvas" width="350" height="350"
+                        class="rounded-2xl border border-[var(--card-border)] shadow-2xl max-w-full h-auto transition-colors duration-300"></canvas>
+
+                    <div class="flex justify-between w-full max-w-[350px] text-sm font-medium">
+                        <span class="text-[var(--text-color)] transition-colors duration-300">Score: <span id="score" class="font-bold">0</span></span>
+                        <span class="text-[var(--text-color)] transition-colors duration-300">Best: <span id="bestScore" class="font-bold">0</span></span>
+                    </div>
+
+                    <div class="flex gap-3 mt-2">
+                        <button id="newGame"
+                            class="bg-[var(--btn-primary-bg)] text-[var(--btn-primary-text)] px-6 py-2.5 rounded-full text-sm font-bold hover:opacity-90 transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_var(--tile-shadow)]">
+                            New Game
+                        </button>
+                        <button id="undoMove"
+                            class="bg-[var(--btn-secondary-bg)] border border-[var(--btn-secondary-border)] text-[var(--btn-secondary-text)] px-6 py-2.5 rounded-full text-sm font-bold hover:opacity-80 transition-all transform hover:scale-105 active:scale-95">
+                            Undo
+                        </button>
+                    </div>
+
+                    <div
+                        class="mt-4 p-4 bg-[var(--btn-secondary-bg)] rounded-2xl border border-[var(--card-border)] text-xs text-[var(--text-muted)] text-center max-w-[350px] transition-colors duration-300">
+                        Use arrow keys or swipe to move tiles. Combine tiles with the same number to reach 2048!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIconDark = document.getElementById('themeIconDark');
+        const themeIconLight = document.getElementById('themeIconLight');
+        const html = document.documentElement;
+
+        function setTheme(theme) {
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            if (theme === 'light') {
+                themeIconDark.classList.add('hidden');
+                themeIconLight.classList.remove('hidden');
+            } else {
+                themeIconDark.classList.remove('hidden');
+                themeIconLight.classList.add('hidden');
+            }
+            // Redraw game with new colors
+            if (typeof drawGrid === 'function') {
+                drawGrid();
+            }
+        }
+
+        // Load saved theme or system preference
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        setTheme(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+
+        // Game functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+            const scoreElement = document.getElementById('score');
+            const bestScoreElement = document.getElementById('bestScore');
+            const newGameButton = document.getElementById('newGame');
+            const undoButton = document.getElementById('undoMove');
+
+            const GRID_SIZE = 4;
+            const CELL_SIZE = canvas.width / GRID_SIZE;
+            const CELL_MARGIN = 10;
+
+            // Tile colors for both themes
+            const TILE_COLORS_DARK = {
+                0: { bg: '#0d0d0d', text: '#0d0d0d' },
+                2: { bg: '#1a1a1a', text: '#ffffff' },
+                4: { bg: '#262626', text: '#ffffff' },
+                8: { bg: '#333333', text: '#ffffff' },
+                16: { bg: '#404040', text: '#ffffff' },
+                32: { bg: '#4d4d4d', text: '#ffffff' },
+                64: { bg: '#595959', text: '#ffffff' },
+                128: { bg: '#666666', text: '#ffffff' },
+                256: { bg: '#737373', text: '#ffffff' },
+                512: { bg: '#808080', text: '#ffffff' },
+                1024: { bg: '#8c8c8c', text: '#ffffff' },
+                2048: { bg: '#999999', text: '#ffffff' },
+                4096: { bg: '#a6a6a6', text: '#ffffff' }
+            };
+
+            const TILE_COLORS_LIGHT = {
+                0: { bg: '#e5e7eb', text: '#e5e7eb' },
+                2: { bg: '#ffffff', text: '#111827' },
+                4: { bg: '#fef3c7', text: '#111827' },
+                8: { bg: '#fde68a', text: '#111827' },
+                16: { bg: '#fcd34d', text: '#111827' },
+                32: { bg: '#fbbf24', text: '#111827' },
+                64: { bg: '#f59e0b', text: '#111827' },
+                128: { bg: '#d97706', text: '#ffffff' },
+                256: { bg: '#b45309', text: '#ffffff' },
+                512: { bg: '#92400e', text: '#ffffff' },
+                1024: { bg: '#78350f', text: '#ffffff' },
+                2048: { bg: '#451a03', text: '#ffffff' },
+                4096: { bg: '#1f2937', text: '#ffffff' }
+            };
+
+            let grid = [];
+            let tiles = []; 
+            let score = 0;
+            let bestScore = localStorage.getItem('2048-bestScore') || 0;
+            let gameOver = false;
+            let moveHistory = [];
+            let animating = false;
+            let currentTheme = 'dark';
+
+            bestScoreElement.textContent = bestScore;
+
+            // Theme observer
+            const themeObserver = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.attributeName === 'data-theme') {
+                        currentTheme = html.getAttribute('data-theme');
+                        drawGrid();
+                    }
+                });
+            });
+            themeObserver.observe(html, { attributes: true });
+
+            function getTileColors() {
+                return currentTheme === 'light' ? TILE_COLORS_LIGHT : TILE_COLORS_DARK;
+            }
+
+            function initGame() {
+                grid = Array(GRID_SIZE).fill().map(() => Array(GRID_SIZE).fill(0));
+                tiles = [];
+                score = 0;
+                gameOver = false;
+                moveHistory = [];
+                animating = false;
+                scoreElement.textContent = score;
+
+                addRandomTile();
+                addRandomTile();
+                drawGrid();
+            }
+
+            function addRandomTile() {
+                const emptyCells = [];
+
+                for (let y = 0; y < GRID_SIZE; y++) {
+                    for (let x = 0; x < GRID_SIZE; x++) {
+                        if (grid[y][x] === 0) {
+                            emptyCells.push({ x, y });
+                        }
+                    }
+                }
+
+                if (emptyCells.length > 0) {
+                    const { x, y } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                    const value = Math.random() < 0.9 ? 2 : 4;
+                    grid[y][x] = value;
+
+                    tiles.push({
+                        x: x,
+                        y: y,
+                        value: value,
+                        scale: 0,
+                        targetScale: 1,
+                        isNew: true
+                    });
+                }
+            }
+
+            function saveState() {
+                moveHistory.push({
+                    grid: JSON.parse(JSON.stringify(grid)),
+                    score: score
+                });
+
+                if (moveHistory.length > 10) {
+                    moveHistory.shift();
+                }
+            }
+
+            function undoMove() {
+                if (moveHistory.length > 0) {
+                    const state = moveHistory.pop();
+                    grid = state.grid;
+                    score = state.score;
+                    gameOver = false;
+                    scoreElement.textContent = score;
+
+                    tiles = [];
+                    for (let y = 0; y < GRID_SIZE; y++) {
+                        for (let x = 0; x < GRID_SIZE; x++) {
+                            if (grid[y][x] !== 0) {
+                                tiles.push({
+                                    x: x,
+                                    y: y,
+                                    value: grid[y][x],
+                                    scale: 1,
+                                    targetScale: 1,
+                                    isNew: false
+                                });
+                            }
+                        }
+                    }
+
+                    drawGrid();
+                }
+            }
+
+            function drawGrid() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Get colors based on current theme
+                const theme = html.getAttribute('data-theme') || 'dark';
+                const gridBg = theme === 'light' ? '#f3f4f6' : '#0a0a0a';
+                const gridLine = theme === 'light' ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.1)';
+                const tileShadow = theme === 'light' ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.2)';
+
+                ctx.fillStyle = gridBg;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.strokeStyle = gridLine;
+                ctx.lineWidth = 2;
+
+                for (let i = 0; i <= GRID_SIZE; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(i * CELL_SIZE, 0);
+                    ctx.lineTo(i * CELL_SIZE, canvas.height);
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, i * CELL_SIZE);
+                    ctx.lineTo(canvas.width, i * CELL_SIZE);
+                    ctx.stroke();
+                }
+
+                let needsRedraw = false;
+
+                for (let i = tiles.length - 1; i >= 0; i--) {
+                    const tile = tiles[i];
+
+                    if (tile.isNew && tile.scale < tile.targetScale) {
+                        tile.scale = Math.min(tile.scale + 0.15, tile.targetScale);
+                        needsRedraw = true;
+                    } else if (tile.isNew && tile.scale >= tile.targetScale) {
+                        tile.isNew = false;
+                    }
+
+                    if (tile.fromX !== undefined) {
+                        const dx = tile.x - tile.fromX;
+                        const dy = tile.y - tile.fromY;
+
+                        if (Math.abs(dx) > 0.01 || Math.abs(dy) > 0.01) {
+                            tile.fromX += dx * 0.3;
+                            tile.fromY += dy * 0.3;
+                            needsRedraw = true;
+                        } else {
+                            delete tile.fromX;
+                            delete tile.fromY;
+                        }
+                    }
+
+                    const drawX = tile.fromX !== undefined ? tile.fromX : tile.x;
+                    const drawY = tile.fromY !== undefined ? tile.fromY : tile.y;
+                    const scale = tile.isNew ? tile.scale : 1;
+
+                    drawTile(drawX, drawY, tile.value, scale);
+                }
+
+                if (needsRedraw && !gameOver) {
+                    requestAnimationFrame(drawGrid);
+                }
+            }
+
+            function drawTile(x, y, value, scale = 1) {
+                const colors = getTileColors();
+                const color = colors[value] || colors[4096];
+
+                const centerX = x * CELL_SIZE + CELL_SIZE / 2;
+                const centerY = y * CELL_SIZE + CELL_SIZE / 2;
+                const size = (CELL_SIZE - CELL_MARGIN) * scale;
+
+                ctx.save();
+                ctx.translate(centerX, centerY);
+
+                ctx.fillStyle = color.bg;
+                ctx.fillRect(
+                    -size / 2,
+                    -size / 2,
+                    size,
+                    size
+                );
+
+                // Add subtle shadow
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
+                ctx.shadowBlur = 4;
+                ctx.shadowOffsetY = 2;
+                ctx.fillRect(
+                    -size / 2,
+                    -size / 2,
+                    size,
+                    size
+                );
+                ctx.shadowBlur = 0;
+                ctx.shadowOffsetY = 0;
+
+                if (value !== 0) {
+                    ctx.fillStyle = color.text;
+                    ctx.font = `bold ${(value < 100 ? 36 : value < 1000 ? 30 : 24) * scale}px Arial`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(value.toString(), 0, 0);
+                }
+
+                ctx.restore();
+            }
+
+            function move(direction) {
+                if (gameOver || animating) return false;
+
+                saveState();
+
+                let moved = false;
+                const oldGrid = JSON.parse(JSON.stringify(grid));
+                const oldTiles = JSON.parse(JSON.stringify(tiles.map(t => ({ x: t.x, y: t.y, value: t.value }))));
+
+                if (direction === 'up' || direction === 'down') {
+                    grid = transpose(grid);
+                }
+                if (direction === 'right' || direction === 'down') {
+                    grid = grid.map(row => row.reverse());
+                }
+
+                for (let y = 0; y < GRID_SIZE; y++) {
+                    let row = grid[y].filter(cell => cell !== 0);
+
+                    for (let i = 0; i < row.length - 1; i++) {
+                        if (row[i] === row[i + 1]) {
+                            row[i] *= 2;
+                            score += row[i];
+                            row.splice(i + 1, 1);
+                            moved = true;
+                        }
+                    }
+
+                    while (row.length < GRID_SIZE) {
+                        row.push(0);
+                    }
+
+                    grid[y] = row;
+                }
+
+                if (direction === 'right' || direction === 'down') {
+                    grid = grid.map(row => row.reverse());
+                }
+                if (direction === 'up' || direction === 'down') {
+                    grid = transpose(grid);
+                }
+
+                moved = moved || !arraysEqual(oldGrid, grid);
+
+                if (moved) {
+                    const newTiles = [];
+                    for (let y = 0; y < GRID_SIZE; y++) {
+                        for (let x = 0; x < GRID_SIZE; x++) {
+                            if (grid[y][x] !== 0) {
+                                const oldTile = tiles.find(t => t.x === x && t.y === y && t.value === grid[y][x]);
+
+                                if (oldTile) {
+                                    newTiles.push(oldTile);
+                                } else {
+                                    let fromX = x, fromY = y;
+                                    for (const old of oldTiles) {
+                                        if (old.value === grid[y][x] || old.value * 2 === grid[y][x]) {
+                                            fromX = old.x;
+                                            fromY = old.y;
+                                            break;
+                                        }
+                                    }
+
+                                    newTiles.push({
+                                        x: x,
+                                        y: y,
+                                        value: grid[y][x],
+                                        fromX: fromX,
+                                        fromY: fromY,
+                                        scale: 1,
+                                        targetScale: 1,
+                                        isNew: false
+                                    });
+                                }
+                            }
+                        }
+                    }
+
+                    tiles = newTiles;
+                    addRandomTile();
+                    scoreElement.textContent = score;
+
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestScoreElement.textContent = bestScore;
+                        localStorage.setItem('2048-bestScore', bestScore);
+                    }
+
+                    checkGameOver();
+                }
+
+                drawGrid();
+                return moved;
+            }
+
+            function transpose(matrix) {
+                return matrix[0].map((_, i) => matrix.map(row => row[i]));
+            }
+
+            function arraysEqual(a, b) {
+                return JSON.stringify(a) === JSON.stringify(b);
+            }
+
+            function checkGameOver() {
+                for (let y = 0; y < GRID_SIZE; y++) {
+                    for (let x = 0; x < GRID_SIZE; x++) {
+                        if (grid[y][x] === 0) return;
+                    }
+                }
+
+                for (let y = 0; y < GRID_SIZE; y++) {
+                    for (let x = 0; x < GRID_SIZE; x++) {
+                        const current = grid[y][x];
+
+                        if ((y < GRID_SIZE - 1 && grid[y + 1][x] === current) ||
+                            (x < GRID_SIZE - 1 && grid[y][x + 1] === current)) {
+                            return;
+                        }
+                    }
+                }
+
+                gameOver = true;
+
+                const theme = html.getAttribute('data-theme') || 'dark';
+                const gameOverBg = theme === 'light' ? 'rgba(255, 255, 255, 0.85)' : 'rgba(0, 0, 0, 0.7)';
+                const gameOverText = theme === 'light' ? '#111827' : '#ffffff';
+
+                ctx.fillStyle = gameOverBg;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = gameOverText;
+                ctx.font = 'bold 24px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2 - 20);
+                ctx.font = '18px Arial';
+                ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 10);
+                ctx.fillText('Click "New Game"', canvas.width / 2, canvas.height / 2 + 40);
+            }
+
+            newGameButton.addEventListener('click', initGame);
+            undoButton.addEventListener('click', undoMove);
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key.startsWith('Arrow')) {
+                    e.preventDefault();
+
+                    switch (e.key) {
+                        case 'ArrowUp': move('up'); break;
+                        case 'ArrowDown': move('down'); break;
+                        case 'ArrowLeft': move('left'); break;
+                        case 'ArrowRight': move('right'); break;
+                    }
+                }
+
+                if (e.ctrlKey && e.key === 'z') {
+                    e.preventDefault();
+                    undoMove();
+                }
+            });
+
+            let touchStartX, touchStartY;
+
+            canvas.addEventListener('touchstart', function (e) {
+                e.preventDefault();
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            });
+
+            canvas.addEventListener('touchend', function (e) {
+                e.preventDefault();
+                if (!touchStartX || !touchStartY) return;
+
+                const touchEndX = e.changedTouches[0].clientX;
+                const touchEndY = e.changedTouches[0].clientY;
+
+                const diffX = touchStartX - touchEndX;
+                const diffY = touchStartY - touchEndY;
+
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    if (diffX > 0) {
+                        move('left');
+                    } else {
+                        move('right');
+                    }
+                } else {
+                    if (diffY > 0) {
+                        move('up');
+                    } else {
+                        move('down');
+                    }
+                }
+
+                touchStartX = null;
+                touchStartY = null;
+            });
+
+            initGame();
+        });
+    </script>
+</body>
+
+</html>

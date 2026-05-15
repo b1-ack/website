@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B1ack</title>
+    <meta name="description" content="Calmness always here">
+    <meta name="keywords" content="Black, B1ack, OS, GNU, Linux, Docs, Documentation, Wiki, Forum, Debian, Ubuntu, Mint, Zorin, Fedora, LMDE, OSINT, Stable, OldStable, Arch, Cybersecurity, Pentesting, Hacking, Forensic, Penetration, Testing, Anonymity, Privacy, Tor, I2P, Onion, DarkNet, FreeNet, Приватность, Кибербезопасность, Криминалистика, Хакинг, Анонимность, 1648, Calmness, Спокойствие, Умиротворение, Игры, Games, Gaming">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        :root {
+            --bg-color: #0A0A0A;
+            --text-color: #f5f5f5;
+            --header-bg: rgba(10, 10, 10, 0.9);
+            --accent-color: rgba(255, 255, 255, 0.08);
+            --accent-hover: rgba(255, 255, 255, 0.15);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --card-bg: rgba(15, 15, 15, 0.8);
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
+        [data-theme="light"] {
+            --bg-color: #fafafa;
+            --text-color: #111827;
+            --header-bg: rgba(249, 250, 251, 0.9);
+            --accent-color: rgba(0, 0, 0, 0.05);
+            --accent-hover: rgba(0, 0, 0, 0.1);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --success-color: #059669;
+            --warning-color: #d97706;
+            --error-color: #dc2626;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-color);
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+        .logo:hover {
+            opacity: 0.9;
+        }
+        .logo img {
+            width: 32px;
+            height: 32px;
+            filter: brightness(0) invert(1);
+        }
+        [data-theme="light"] .logo img {
+            filter: brightness(0);
+        }
+        @keyframes fade-in-up {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .hero {
+            text-align: center;
+            animation: fade-in-up 0.8s ease-out forwards;
+        }
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        .hero-line-1 {
+            background: linear-gradient(to bottom, var(--text-color), var(--text-color) 60%, rgba(128,128,128,0.7));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        .hero-line-2 {
+            background: linear-gradient(to bottom, rgba(128,128,128,0.8), rgba(100,100,100,0.6));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+        [data-theme="light"] .hero-line-1 {
+            background: linear-gradient(to bottom, #1a1a1a, #333 60%, #666);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        [data-theme="light"] .hero-line-2 {
+            background: linear-gradient(to bottom, #666, #888);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        @font-face {
+            font-family: 'B1ackFont';
+            src: url('font.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        .logo-text {
+            font-family: 'B1ackFont', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .nav {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px;
+            flex-direction: column;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .nav.active {
+            display: flex;
+        }
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 12px 16px;
+            border-radius: 10px;
+            transition: var(--transition);
+            font-weight: 500;
+            text-align: center;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
+        }
+        .nav-link:hover {
+            background: var(--accent-color);
+            border-color: var(--border-color);
+        }
+        .nav-link.active {
+            background: var(--accent-color);
+            border-color: var(--border-color);
+        }
+        @media (min-width: 768px) {
+            .nav {
+                position: static;
+                display: flex;
+                flex-direction: row;
+                padding: 0;
+                background: none;
+                border: none;
+                backdrop-filter: none;
+                gap: 8px;
+                box-shadow: none;
+            }
+            .nav-link {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+        .control-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: var(--transition);
+            text-decoration: none;
+            box-shadow: var(--shadow-sm);
+        }
+        .control-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+        .control-btn img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+        .theme-img {
+            filter: brightness(0) invert(1);
+        }
+        [data-theme="light"] .theme-img {
+            filter: brightness(0);
+        }
+        @media (min-width: 768px) {
+            .control-btn {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-color);
+            transition: var(--transition);
+            border-radius: 1px;
+        }
+        @media (min-width: 768px) {
+            .menu-toggle {
+                display: none;
+            }
+        }
+        main {
+            padding-top: 80px;
+            min-height: calc(100vh - 60px);
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        footer {
+            height: 60px;
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+            box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.1);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .footer-center {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .footer-right {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        footer a {
+            color: var(--text-color);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: var(--transition);
+            font-size: 0.875rem;
+            font-weight: 400;
+        }
+        footer a:hover {
+            opacity: 1;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+        footer img {
+            height: 31px;
+            width: auto;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+        footer img:hover {
+            opacity: 1;
+        }
+        @media (max-width: 767px) {
+            footer {
+                height: auto;
+                padding: 20px 0;
+            }
+            .footer-container {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .footer-center {
+                justify-content: center;
+                gap: 16px;
+            }
+            .footer-licenses {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 10px;
+            }
+            .footer-licenses img {
+                height: 24px;
+            }
+            .footer-left,
+            .footer-right {
+                display: none;
+            }
+        }
+        .cookie-consent {
+            position: fixed;
+            bottom: 32px;
+            left: 32px;
+            right: 32px;
+            max-width: 420px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 28px;
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(150%);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .cookie-consent.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .cookie-consent h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .cookie-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-color);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.1);
+            }
+        }
+        .cookie-consent p {
+            font-size: 0.95rem;
+            opacity: 0.7;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        .cookie-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--text-color);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            box-shadow: var(--shadow-md);
+        }
+        .cookie-btn:hover {
+            opacity: 0.95;
+            transform: scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+        @media (max-width: 500px) {
+            .cookie-consent {
+                left: 20px;
+                right: 20px;
+                bottom: 20px;
+                max-width: none;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="img/b1ack.svg" alt="B1ack Logo">
+                <span class="logo-text">B1ack</span>
+            </a>
+
+            <nav class="nav" id="nav">
+                <a href="/" class="nav-link active" data-lang="ru">Главная</a>
+                <a href="/" class="nav-link active" data-lang="en">Home</a>
+                <a href="https://os.b1ack.net" class="nav-link" data-lang="ru">Система</a>
+                <a href="https://os.b1ack.net" class="nav-link" data-lang="en">System</a>
+                <a href="https://wiki.b1ack.net" class="nav-link" data-lang="ru">Документация</a>
+                <a href="https://wiki.b1ack.net" class="nav-link" data-lang="en">Documentation</a>
+                <a href="/fingerprint" class="nav-link" data-lang="ru">Отпечаток</a>
+                <a href="/fingerprint" class="nav-link" data-lang="en">Fingerprint</a>
+                <a href="/generator" class="nav-link" data-lang="ru">Генератор</a>
+                <a href="/generator" class="nav-link" data-lang="en">Generator</a>
+            </nav>
+
+            <div class="controls">
+                <button class="control-btn" id="theme-toggle" title="">
+                    <img class="theme-icon theme-img" src="img/icons/dark.png" alt="Theme">
+                </button>
+                <button class="control-btn" id="lang-toggle" title="">
+                    <img class="lang-icon" src="img/icons/ru.png" alt="Language">
+                </button>
+                <a href="/work" class="control-btn" title=""><img class="theme-img" src="img/icons/donate.png" alt="Donate"></a>
+                <button class="menu-toggle" id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1 class="hero-title">
+                <span class="hero-line-1" data-lang="ru">Спокойствие всегда</span><span class="hero-line-1" data-lang="en" style="display:none">Calmness always</span><br>
+                <span class="hero-line-2" data-lang="ru">здесь</span><span class="hero-line-2" data-lang="en" style="display:none">here</span>
+            </h1>
+        </div>
+    </main>
+
+    <div id="cookie-consent" class="cookie-consent">
+        <h3><span class="cookie-dot"></span><span data-lang="ru">Cookies</span><span data-lang="en" style="display:none">Cookies</span></h3>
+        <p data-lang="ru">Мы не собираем и не храним ваши файлы cookie.</p>
+        <p data-lang="en" style="display:none">We do not collect or store your cookies.</p>
+        <button class="cookie-btn" onclick="acceptCookies()" data-lang="ru">Принять</button>
+        <button class="cookie-btn" onclick="acceptCookies()" data-lang="en" style="display:none">Accept</button>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const langToggle = document.getElementById('lang-toggle');
+        const menuToggle = document.getElementById('menu-toggle');
+        const nav = document.getElementById('nav');
+        const themeIcon = themeToggle.querySelector('.theme-icon');
+        const langIcon = langToggle.querySelector('.lang-icon');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const systemTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+            const savedTheme = localStorage.getItem('theme') || systemTheme;
+            setTheme(savedTheme);
+
+            const systemLang = navigator.language.startsWith('ru') ? 'ru' : 'en';
+            const savedLang = localStorage.getItem('lang') || systemLang;
+            setLanguage(savedLang);
+
+            menuToggle.addEventListener('click', () => {
+                nav.classList.toggle('active');
+            });
+
+            if (!localStorage.getItem('cookie-consent')) {
+                setTimeout(() => {
+                    document.getElementById('cookie-consent').classList.add('show');
+                }, 500);
+            }
+        });
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            themeIcon.src = theme === 'dark' ? 'img/icons/dark.png' : 'img/icons/light.png';
+        }
+
+        langToggle.addEventListener('click', () => {
+            const currentLang = document.documentElement.getAttribute('data-lang') || 'ru';
+            const newLang = currentLang === 'ru' ? 'en' : 'ru';
+            setLanguage(newLang);
+            localStorage.setItem('lang', newLang);
+        });
+
+        function setLanguage(lang) {
+            document.documentElement.setAttribute('data-lang', lang);
+            langIcon.src = lang === 'ru' ? 'img/icons/ru.png' : 'img/icons/en.png';
+            
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none';
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
+                nav.classList.remove('active');
+            }
+        });
+
+        function acceptCookies() {
+            localStorage.setItem('cookie-consent', 'accepted');
+            const consent = document.getElementById('cookie-consent');
+            consent.classList.remove('show');
+            setTimeout(() => consent.style.display = 'none', 500);
+        }
+
+        (function() {
+            const key = 'page_refresh_count';
+            const limit = 5;
+            const windowMs = 60000;
+            
+            const now = Date.now();
+            let refreshData = JSON.parse(localStorage.getItem(key) || '[]');
+            
+            refreshData = refreshData.filter(t => now - t < windowMs);
+            refreshData.push(now);
+            
+            localStorage.setItem(key, JSON.stringify(refreshData));
+            
+            if (refreshData.length > limit) {
+                localStorage.setItem(key, '[]');
+                window.location.href = '/survive';
+            }
+        })();
+    </script>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-left">
+                <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html"><img src="https://www.gnu.org/graphics/gplv3-or-later.png" alt="GPLv3" width="88" height="31" loading="lazy"></a>
+            </div>
+            <div class="footer-center">
+                <a href="mailto:support@b1ack.net">support@b1ack.net</a>
+                <a href="https://github.com/b1-ack" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://t.me/b1ackchannel" target="_blank" rel="noopener">Telegram</a>
+            </div>
+            <div class="footer-right">
+                <a href="https://www.gnu.org/licenses/fdl-1.3.en.html" title="GNU Free Documentation License">
+                    <img src="https://www.gnu.org/graphics/gfdl-logo-tiny.png" alt="GFDL" style="height: 24px;">
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

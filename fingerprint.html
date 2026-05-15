@@ -1,0 +1,1592 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <title>B1ack - FingerPrint</title>
+        <meta name="description" content="Check your browser fingerprint" />
+        <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+        <style>
+            :root {
+                --bg-color: #0a0a0a;
+                --text-color: #f5f5f5;
+                --header-bg: rgba(10, 10, 10, 0.9);
+                --accent-color: rgba(255, 255, 255, 0.08);
+                --accent-hover: rgba(255, 255, 255, 0.15);
+                --border-color: rgba(255, 255, 255, 0.08);
+                --card-bg: rgba(15, 15, 15, 0.8);
+                --success-color: #10b981;
+                --warning-color: #f59e0b;
+                --error-color: #ef4444;
+                --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+                --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+                --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            }
+            [data-theme="light"] {
+                --bg-color: #fafafa;
+                --text-color: #111827;
+                --header-bg: rgba(249, 250, 251, 0.9);
+                --accent-color: rgba(0, 0, 0, 0.05);
+                --accent-hover: rgba(0, 0, 0, 0.1);
+                --border-color: rgba(0, 0, 0, 0.08);
+                --card-bg: rgba(255, 255, 255, 0.9);
+                --success-color: #059669;
+                --warning-color: #d97706;
+                --error-color: #dc2626;
+                --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+                --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                background-color: var(--bg-color);
+                color: var(--text-color);
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                line-height: 1.6;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+            header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 60px;
+                background: var(--header-bg);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border-bottom: 1px solid var(--border-color);
+                z-index: 1000;
+                box-shadow: var(--shadow-sm);
+            }
+            .header-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                text-decoration: none;
+                color: var(--text-color);
+                flex-shrink: 0;
+                transition: var(--transition);
+            }
+            .logo:hover {
+                opacity: 0.9;
+            }
+            .logo img {
+                width: 32px;
+                height: 32px;
+                filter: brightness(0) invert(1);
+            }
+            [data-theme="light"] .logo img {
+                filter: brightness(0);
+            }
+            @font-face {
+                font-family: "B1ackFont";
+                src: url("font.otf") format("opentype");
+                font-weight: normal;
+                font-style: normal;
+            }
+            .logo-text {
+                font-family: "B1ackFont", sans-serif;
+                font-size: 1.5rem;
+                font-weight: 700;
+                letter-spacing: -0.5px;
+            }
+            .nav {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--bg-color);
+                border-bottom: 1px solid var(--border-color);
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+            .nav.active {
+                display: flex;
+            }
+            .nav-link {
+                color: var(--text-color);
+                text-decoration: none;
+                padding: 12px 16px;
+                border-radius: 10px;
+                transition: var(--transition);
+                font-weight: 500;
+                text-align: center;
+                font-size: 0.95rem;
+                border: 1px solid transparent;
+            }
+            .nav-link:hover {
+                background: var(--accent-color);
+                border-color: var(--border-color);
+            }
+            .nav-link.active {
+                background: var(--accent-color);
+                border-color: var(--border-color);
+            }
+            @media (min-width: 768px) {
+                .nav {
+                    position: static;
+                    display: flex;
+                    flex-direction: row;
+                    padding: 0;
+                    background: none;
+                    border: none;
+                    backdrop-filter: none;
+                    gap: 8px;
+                    box-shadow: none;
+                }
+                .nav-link {
+                    padding: 8px 16px;
+                    font-size: 0.9rem;
+                }
+            }
+            .controls {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                flex-shrink: 0;
+            }
+            .control-btn {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background: var(--accent-color);
+                border: 1px solid var(--border-color);
+                color: var(--text-color);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+                transition: var(--transition);
+                text-decoration: none;
+                box-shadow: var(--shadow-sm);
+            }
+            .control-btn:hover {
+                background: var(--accent-hover);
+                transform: scale(1.05);
+                box-shadow: var(--shadow-md);
+            }
+            .control-btn img {
+                width: 20px;
+                height: 20px;
+                object-fit: contain;
+            }
+            .theme-img {
+                filter: brightness(0) invert(1);
+            }
+            [data-theme="light"] .theme-img {
+                filter: brightness(0);
+            }
+            @media (min-width: 768px) {
+                .control-btn {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+            .menu-toggle {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                padding: 8px;
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+            .menu-toggle span {
+                width: 24px;
+                height: 2px;
+                background: var(--text-color);
+                transition: var(--transition);
+                border-radius: 1px;
+            }
+            @media (min-width: 768px) {
+                .menu-toggle {
+                    display: none;
+                }
+            }
+            main {
+                padding-top: 80px;
+                min-height: calc(100vh - 60px);
+                flex: 1;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+            section {
+                margin-bottom: 48px;
+            }
+            h1 {
+                font-size: 2.25rem;
+                font-weight: 700;
+                margin-bottom: 24px;
+                letter-spacing: -0.5px;
+            }
+            h2 {
+                font-size: 1.25rem;
+                font-weight: 600;
+                margin-bottom: 16px;
+                letter-spacing: -0.25px;
+            }
+            .info-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            @media (min-width: 768px) {
+                .info-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            @media (min-width: 1024px) {
+                .info-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+            .card {
+                background: var(--card-bg);
+                border-radius: 16px;
+                padding: 24px;
+                border: 1px solid var(--border-color);
+                box-shadow: var(--shadow-md);
+                transition: var(--transition);
+            }
+            .card:hover {
+                box-shadow: var(--shadow-lg);
+                transform: translateY(-2px);
+                border-color: rgba(255, 255, 255, 0.12);
+            }
+            [data-theme="light"] .card:hover {
+                border-color: rgba(0, 0, 0, 0.12);
+            }
+            .card-header {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+            .card-icon {
+                width: 1.75rem;
+                height: 1.75rem;
+                flex-shrink: 0;
+            }
+            .card-icon svg {
+                width: 100%;
+                height: 100%;
+                opacity: 0.8;
+            }
+            .card h2 {
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border-bottom: none;
+            }
+            .info-item {
+                padding: 12px 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .info-item:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .info-label {
+                font-size: 0.875rem;
+                opacity: 0.6;
+                margin-bottom: 6px;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .info-value {
+                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+                font-size: 0.95rem;
+                word-break: break-all;
+                line-height: 1.5;
+            }
+            .status-indicator {
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                margin-right: 8px;
+                box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+            }
+            .status-online {
+                background-color: var(--success-color);
+                box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+            }
+            .status-offline {
+                background-color: var(--error-color);
+                box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+            }
+            .status-unknown {
+                background-color: var(--warning-color);
+                box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+            }
+            .actions {
+                display: flex;
+                gap: 16px;
+                flex-wrap: wrap;
+                margin-top: 32px;
+            }
+            .btn {
+                display: inline-block;
+                padding: 14px 28px;
+                background: var(--accent-color);
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                color: var(--text-color);
+                text-decoration: none;
+                transition: var(--transition);
+                cursor: pointer;
+                font-size: 1rem;
+                font-weight: 500;
+                box-shadow: var(--shadow-sm);
+            }
+            .btn:hover {
+                background: var(--accent-hover);
+                box-shadow: var(--shadow-md);
+                transform: translateY(-1px);
+            }
+            .btn-primary {
+                background: var(--success-color);
+                border-color: var(--success-color);
+                color: white;
+            }
+            .btn-primary:hover {
+                filter: brightness(1.05);
+                box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+            }
+            footer {
+                height: 60px;
+                background: var(--header-bg);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border-top: 1px solid var(--border-color);
+                box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.1);
+            }
+            .footer-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .footer-center {
+                display: flex;
+                align-items: center;
+                gap: 24px;
+            }
+            .footer-right {
+                display: flex;
+                align-items: center;
+                flex-shrink: 0;
+            }
+            footer a {
+                color: var(--text-color);
+                text-decoration: none;
+                opacity: 0.7;
+                transition: var(--transition);
+                font-size: 0.875rem;
+                font-weight: 400;
+            }
+            footer a:hover {
+                opacity: 1;
+                text-decoration: underline;
+                text-underline-offset: 4px;
+            }
+            footer img {
+                height: 31px;
+                width: auto;
+                opacity: 0.7;
+                transition: var(--transition);
+            }
+            footer img:hover {
+                opacity: 1;
+            }
+            @media (max-width: 767px) {
+                footer {
+                    height: auto;
+                    padding: 20px 0;
+                }
+                .footer-container {
+                    flex-direction: column;
+                    gap: 16px;
+                }
+                .footer-center {
+                    justify-content: center;
+                    gap: 16px;
+                }
+                .footer-licenses {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    margin-top: 10px;
+                }
+                .footer-licenses img {
+                    height: 24px;
+                }
+                .footer-left,
+                .footer-right {
+                    display: none;
+                }
+            }
+            .cookie-consent {
+                position: fixed;
+                bottom: 32px;
+                left: 32px;
+                right: 32px;
+                max-width: 420px;
+                background: var(--card-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 20px;
+                padding: 28px;
+                z-index: 1000;
+                box-shadow: var(--shadow-lg);
+                transform: translateY(150%);
+                opacity: 0;
+                transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            }
+            .cookie-consent.show {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            .cookie-consent h3 {
+                font-size: 1.125rem;
+                font-weight: 600;
+                margin-bottom: 14px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            .cookie-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: var(--text-color);
+                animation: pulse 2s infinite;
+            }
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                50% {
+                    opacity: 0.5;
+                    transform: scale(1.1);
+                }
+            }
+            .cookie-consent p {
+                font-size: 0.95rem;
+                opacity: 0.7;
+                margin-bottom: 24px;
+                line-height: 1.6;
+            }
+            .cookie-btn {
+                width: 100%;
+                padding: 16px;
+                background: var(--text-color);
+                color: var(--bg-color);
+                border: none;
+                border-radius: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: var(--transition);
+                font-size: 1rem;
+                box-shadow: var(--shadow-md);
+            }
+            .cookie-btn:hover {
+                opacity: 0.95;
+                transform: scale(1.02);
+                box-shadow: var(--shadow-lg);
+            }
+            @media (max-width: 500px) {
+                .cookie-consent {
+                    left: 20px;
+                    right: 20px;
+                    bottom: 20px;
+                    max-width: none;
+                    padding: 24px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-container">
+                <a href="/" class="logo"><img src="/img/b1ack.svg" alt="B1ack Logo" /><span class="logo-text">B1ack</span></a>
+                <nav class="nav" id="nav">
+                    <a href="/" class="nav-link" data-lang="ru">Главная</a>
+                    <a href="/" class="nav-link" data-lang="en">Home</a>
+                    <a href="https://os.b1ack.net" class="nav-link" data-lang="ru">Система</a>
+                    <a href="https://os.b1ack.net" class="nav-link" data-lang="en">System</a>
+                    <a href="https://wiki.b1ack.net" class="nav-link" data-lang="ru">Документация</a>
+                    <a href="https://wiki.b1ack.net" class="nav-link" data-lang="en">Documentation</a>
+                    <a href="/fingerprint" class="nav-link active" data-lang="ru">Отпечаток</a>
+                    <a href="/fingerprint" class="nav-link active" data-lang="en">Fingerprint</a>
+                    <a href="/generator" class="nav-link" data-lang="ru">Генератор</a>
+                    <a href="/generator" class="nav-link" data-lang="en">Generator</a>
+                </nav>
+                <div class="controls">
+                    <button class="control-btn" id="theme-toggle" title=""><img class="theme-icon theme-img" src="img/icons/dark.png" alt="Theme"></button>
+                    <button class="control-btn" id="lang-toggle" title=""><img class="lang-icon" src="img/icons/ru.png" alt="Language"></button>
+                    <a href="/work" class="control-btn" title=""><img class="theme-img" src="img/icons/donate.png" alt="Donate"></a>
+                    <button class="menu-toggle" id="menu-toggle"><span></span><span></span><span></span></button>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="cookie-consent" id="cookie-consent">
+                <h3>
+                    <span class="cookie-dot"></span><span data-lang="ru">Cookies</span>
+                    <span data-lang="en">Cookies</span>
+                </h3>
+                <p data-lang="ru">Мы не собираем и не храним ваши файлы cookie.</p>
+                <p data-lang="en">We do not collect or store your cookies.</p>
+                <button class="cookie-btn" onclick="acceptCookies()" data-lang="ru">Принять</button>
+                <button class="cookie-btn" onclick="acceptCookies()" data-lang="en">Accept</button>
+            </div>
+            <div class="container">
+                <section>
+                    <h1 data-lang="ru">Отпечаток браузера</h1>
+                    <h1 data-lang="en">Browser Fingerprint</h1>
+                    <p data-lang="ru">Узнайте какую информацию о вас передаёт ваш браузер.</p>
+                    <p data-lang="en">Find out what information your browser is transmitting about you.</p>
+                </section>
+                <section>
+                    <div class="info-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                </span>
+                                <h2 data-lang="ru">IP</h2>
+                                <h2 data-lang="en">IP</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">IP</div>
+                                <div class="info-value" id="ip">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Провайдер</div>
+                                <div class="info-label" data-lang="en">ISP</div>
+                                <div class="info-value" id="isp">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Клиент</h2>
+                                <h2 data-lang="en">Client</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">User Agent</div>
+                                <div class="info-value" id="user-agent">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Платформа</div>
+                                <div class="info-label" data-lang="en">Platform</div>
+                                <div class="info-value" id="platform">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Геолокация</h2>
+                                <h2 data-lang="en">Location</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Страна</div>
+                                <div class="info-label" data-lang="en">Country</div>
+                                <div class="info-value" id="country">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Город</div>
+                                <div class="info-label" data-lang="en">City</div>
+                                <div class="info-value" id="city">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Время</h2>
+                                <h2 data-lang="en">Time</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Часовой пояс</div>
+                                <div class="info-label" data-lang="en">Timezone</div>
+                                <div class="info-value" id="timezone">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Язык</div>
+                                <div class="info-label" data-lang="en">Language</div>
+                                <div class="info-value" id="language">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Защита</h2>
+                                <h2 data-lang="en">Security</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Cookies</div>
+                                <div class="info-value" id="cookies">
+                                    <span class="status-indicator"></span><span>...</span>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Local Storage</div>
+                                <div class="info-value" id="local-storage">
+                                    <span class="status-indicator"></span><span>...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Устройство</h2>
+                                <h2 data-lang="en">Device</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">ОС</div>
+                                <div class="info-label" data-lang="en">OS</div>
+                                <div class="info-value" id="os">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Разрешение</div>
+                                <div class="info-label" data-lang="en">Resolution</div>
+                                <div class="info-value" id="resolution">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Сенсоры</h2>
+                                <h2 data-lang="en">Sensors</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Geolocation</div>
+                                <div class="info-value" id="perm-geolocation">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Notifications</div>
+                                <div class="info-value" id="perm-notifications">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Камера</h2>
+                                <h2 data-lang="en">Camera</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Camera</div>
+                                <div class="info-value" id="perm-camera">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Microphone</div>
+                                <div class="info-value" id="perm-microphone">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Периферия</h2>
+                                <h2 data-lang="en">Periphery</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Clipboard</div>
+                                <div class="info-value" id="perm-clipboard">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">MIDI</div>
+                                <div class="info-value" id="perm-midi">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Хранилище</h2>
+                                <h2 data-lang="en">Storage</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Session Storage</div>
+                                <div class="info-value" id="session-storage">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">IndexedDB</div>
+                                <div class="info-value" id="indexeddb">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Кэш</h2>
+                                <h2 data-lang="en">Cache</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">WebSQL</div>
+                                <div class="info-value" id="websql">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Cache API</div>
+                                <div class="info-value" id="cache-api">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Экран</h2>
+                                <h2 data-lang="en">Screen</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Цветовая глубина</div>
+                                <div class="info-label" data-lang="en">Color Depth</div>
+                                <div class="info-value" id="color-depth">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Пиксельная глубина</div>
+                                <div class="info-label" data-lang="en">Pixel Depth</div>
+                                <div class="info-value" id="pixel-depth">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Размеры</h2>
+                                <h2 data-lang="en">Dimensions</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Доступная ширина</div>
+                                <div class="info-label" data-lang="en">Available Width</div>
+                                <div class="info-value" id="avail-width">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Доступная высота</div>
+                                <div class="info-label" data-lang="en">Available Height</div>
+                                <div class="info-value" id="avail-height">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Ориентация</h2>
+                                <h2 data-lang="en">Orientation</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Ориентация</div>
+                                <div class="info-label" data-lang="en">Orientation</div>
+                                <div class="info-value" id="orientation">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Device Pixel Ratio</div>
+                                <div class="info-value" id="device-pixel-ratio">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Соединение</h2>
+                                <h2 data-lang="en">Connection</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Тип соединения</div>
+                                <div class="info-label" data-lang="en">Connection Type</div>
+                                <div class="info-value" id="connection-type">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Эффективный тип</div>
+                                <div class="info-label" data-lang="en">Effective Type</div>
+                                <div class="info-value" id="effective-type">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Скорость</h2>
+                                <h2 data-lang="en">Speed</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Пропускная способность</div>
+                                <div class="info-label" data-lang="en">Downlink</div>
+                                <div class="info-value" id="downlink">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label" data-lang="ru">Задержка (RTT)</div>
+                                <div class="info-label" data-lang="en">Latency (RTT)</div>
+                                <div class="info-value" id="rtt">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Статус</h2>
+                                <h2 data-lang="en">Status</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Online Status</div>
+                                <div class="info-value" id="online-status">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Do Not Track</div>
+                                <div class="info-value" id="do-not-track">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Процессор</h2>
+                                <h2 data-lang="en">Processor</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">CPU Cores</div>
+                                <div class="info-value" id="cpu-cores">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Device Memory</div>
+                                <div class="info-value" id="device-memory">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Память</h2>
+                                <h2 data-lang="en">Memory</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Touch Points</div>
+                                <div class="info-value" id="touch-points">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Max Touch Points</div>
+                                <div class="info-value" id="max-touch-points">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4m-2-2v4"/><line x1="15" y1="11" x2="15.01" y2="11"/><line x1="18" y1="13" x2="18.01" y2="13"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Ввод</h2>
+                                <h2 data-lang="en">Input</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Keyboard</div>
+                                <div class="info-value" id="keyboard">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Pointer Type</div>
+                                <div class="info-value" id="pointer-type">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4m-2-2v4"/><line x1="15" y1="11" x2="15.01" y2="11"/><line x1="18" y1="13" x2="18.01" y2="13"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Указывание</h2>
+                                <h2 data-lang="en">Pointing</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Hover Capable</div>
+                                <div class="info-value" id="hover-capable">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Gamepads</div>
+                                <div class="info-value" id="gamepads">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Аудио</h2>
+                                <h2 data-lang="en">Audio</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Audio Context</div>
+                                <div class="info-value" id="audio-context">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">WebGL</div>
+                                <div class="info-value" id="webgl">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Видео</h2>
+                                <h2 data-lang="en">Video</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">WebGL2</div>
+                                <div class="info-value" id="webgl2">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">WebGPU</div>
+                                <div class="info-value" id="webgpu">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Кодеки</h2>
+                                <h2 data-lang="en">Codecs</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Video Formats</div>
+                                <div class="info-value" id="video-formats">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Audio Formats</div>
+                                <div class="info-value" id="audio-formats">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                                </span>
+                                <h2 data-lang="ru">WebRTC</h2>
+                                <h2 data-lang="en">WebRTC</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">WebRTC</div>
+                                <div class="info-value" id="webrtc">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">WebSockets</div>
+                                <div class="info-value" id="websockets">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Сервисы</h2>
+                                <h2 data-lang="en">Services</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Service Workers</div>
+                                <div class="info-value" id="service-workers">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Web Workers</div>
+                                <div class="info-value" id="web-workers">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Технологии</h2>
+                                <h2 data-lang="en">Technologies</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">WebAssembly</div>
+                                <div class="info-value" id="webassembly">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Bluetooth</div>
+                                <div class="info-value" id="bluetooth">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Интерфейсы</h2>
+                                <h2 data-lang="en">Interfaces</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">USB</div>
+                                <div class="info-value" id="usb">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">NFC</div>
+                                <div class="info-value" id="nfc">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Дополнительно</h2>
+                                <h2 data-lang="en">Extras</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">VR/XR</div>
+                                <div class="info-value" id="vr">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Share API</div>
+                                <div class="info-value" id="share-api">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Производительность</h2>
+                                <h2 data-lang="en">Performance</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Performance API</div>
+                                <div class="info-value" id="performance-api">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Navigation Timing</div>
+                                <div class="info-value" id="nav-timing">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Тайминги</h2>
+                                <h2 data-lang="en">Timings</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Resource Timing</div>
+                                <div class="info-value" id="resource-timing">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Paint Timing</div>
+                                <div class="info-value" id="paint-timing">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Плагины</h2>
+                                <h2 data-lang="en">Plugins</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">PDF Viewer</div>
+                                <div class="info-value" id="pdf-viewer">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Plugins</div>
+                                <div class="info-value" id="plugins">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                </span>
+                                <h2 data-lang="ru">MIME</h2>
+                                <h2 data-lang="en">MIME</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">MIME Types</div>
+                                <div class="info-value" id="mime-types">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Languages</div>
+                                <div class="info-value" id="languages">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Продукт</h2>
+                                <h2 data-lang="en">Product</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Product</div>
+                                <div class="info-value" id="product">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Vendor</div>
+                                <div class="info-value" id="vendor">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Вендор</h2>
+                                <h2 data-lang="en">Vendor</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">App Name</div>
+                                <div class="info-value" id="app-name">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">App Version</div>
+                                <div class="info-value" id="app-version">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Приложение</h2>
+                                <h2 data-lang="en">Application</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Java Enabled</div>
+                                <div class="info-value" id="java-enabled">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">PDF Viewer Enabled</div>
+                                <div class="info-value" id="pdf-enabled">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Java</h2>
+                                <h2 data-lang="en">Java</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Cookies Enabled</div>
+                                <div class="info-value" id="cookies-enabled">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Do Not Track</div>
+                                <div class="info-value" id="dnt-value">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                                </span>
+                                <h2 data-lang="ru">WebGL</h2>
+                                <h2 data-lang="en">WebGL</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">WebGL Vendor</div>
+                                <div class="info-value" id="webgl-vendor">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">WebGL Renderer</div>
+                                <div class="info-value" id="webgl-renderer">...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                                </span>
+                                <h2 data-lang="ru">Текстуры</h2>
+                                <h2 data-lang="en">Textures</h2>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Max Texture Size</div>
+                                <div class="info-value" id="max-texture-size">...</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Max Viewport Dims</div>
+                                <div class="info-value" id="max-viewport-dims">...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        <footer>
+        <div class="footer-container">
+            <div class="footer-left">
+                <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html"><img src="https://www.gnu.org/graphics/gplv3-or-later.png" alt="GPLv3" width="88" height="31" loading="lazy"></a>
+            </div>
+            <div class="footer-center">
+                <a href="mailto:support@b1ack.net">support@b1ack.net</a>
+                <a href="https://github.com/b1-ack" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://t.me/b1ackchannel" target="_blank" rel="noopener">Telegram</a>
+            </div>
+            <div class="footer-right">
+                <a href="https://www.gnu.org/licenses/fdl-1.3.en.html" title="GNU Free Documentation License">
+                    <img src="https://www.gnu.org/graphics/gfdl-logo-tiny.png" alt="GFDL" style="height: 24px;">
+                </a>
+            </div>
+        </div>
+    </footer>
+        <script>
+            const themeToggle = document.getElementById("theme-toggle");
+            const langToggle = document.getElementById("lang-toggle");
+            const menuToggle = document.getElementById("menu-toggle");
+            const nav = document.getElementById("nav");
+            const themeIcon = themeToggle.querySelector(".theme-icon");
+            const langIcon = langToggle.querySelector(".lang-icon");
+            document.addEventListener("DOMContentLoaded", () => {
+                const systemTheme = window.matchMedia("(prefers-color-scheme:light)").matches ? "light" : "dark";
+                const savedTheme = localStorage.getItem("theme") || systemTheme;
+                setTheme(savedTheme);
+                const systemLang = navigator.language.startsWith("ru") ? "ru" : "en";
+                const savedLang = localStorage.getItem("lang") || systemLang;
+                setLanguage(savedLang);
+                menuToggle.addEventListener("click", () => {
+                    nav.classList.toggle("active");
+                });
+                detectInfo();
+            });
+            themeToggle.addEventListener("click", () => {
+                const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
+                const newTheme = currentTheme === "dark" ? "light" : "dark";
+                setTheme(newTheme);
+                localStorage.setItem("theme", newTheme);
+            });
+            function setTheme(theme) {
+                document.documentElement.setAttribute("data-theme", theme);
+                themeIcon.src = theme === "dark" ? "img/icons/dark.png" : "img/icons/light.png";
+            }
+            langToggle.addEventListener("click", () => {
+                const currentLang = document.documentElement.getAttribute("data-lang") || "ru";
+                const newLang = currentLang === "ru" ? "en" : "ru";
+                setLanguage(newLang);
+                localStorage.setItem("lang", newLang);
+            });
+            function setLanguage(lang) {
+                document.documentElement.setAttribute("data-lang", lang);
+                langIcon.src = lang === "ru" ? "img/icons/ru.png" : "img/icons/en.png";
+                document.querySelectorAll("[data-lang]").forEach((el) => {
+                    el.style.display = el.getAttribute("data-lang") === lang ? "" : "none";
+                });
+            }
+            document.addEventListener("click", (e) => {
+                if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
+                    nav.classList.remove("active");
+                }
+            });
+            function detectInfo() {
+                if (!localStorage.getItem("cookie-consent")) {
+                    setTimeout(() => {
+                        document.getElementById("cookie-consent").classList.add("show");
+                    }, 500);
+                }
+                const ua = navigator.userAgent;
+                document.getElementById("user-agent").textContent = ua;
+                document.getElementById("platform").textContent = navigator.platform;
+                document.getElementById("timezone").textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                document.getElementById("language").textContent = navigator.language;
+                document.getElementById("resolution").textContent = `${screen.width} × ${screen.height}`;
+                let os = "Unknown";
+                if (ua.includes("Win")) os = "Windows";
+                else if (ua.includes("Mac")) os = "MacOS";
+                else if (ua.includes("Linux")) os = "Linux";
+                else if (ua.includes("Android")) os = "Android";
+                else if (ua.includes("iOS")) os = "iOS";
+                document.getElementById("os").textContent = os;
+                const cookiesStatus = document.getElementById("cookies");
+                cookiesStatus.innerHTML = `<span class="status-indicator status-${navigator.cookieEnabled ? "online" : "offline"}"></span> <span>${navigator.cookieEnabled ? "Enabled" : "Disabled"}</span>`;
+                try {
+                    localStorage.setItem("test", "test");
+                    localStorage.removeItem("test");
+                    document.getElementById("local-storage").innerHTML =
+                        `<span class="status-indicator status-online"></span> <span>Available</span>`;
+                } catch (e) {
+                    document.getElementById("local-storage").innerHTML =
+                        `<span class="status-indicator status-offline"></span> <span>Unavailable</span>`;
+                }
+                if (navigator.permissions) {
+                    const permissions = [
+                        "geolocation",
+                        "notifications",
+                        "camera",
+                        "microphone",
+                        "clipboard-read",
+                        "midi",
+                    ];
+                    const permIds = {
+                        geolocation: "perm-geolocation",
+                        notifications: "perm-notifications",
+                        camera: "perm-camera",
+                        microphone: "perm-microphone",
+                        "clipboard-read": "perm-clipboard",
+                        midi: "perm-midi",
+                    };
+                    permissions.forEach((perm) => {
+                        navigator.permissions
+                            .query({ name: perm })
+                            .then((result) => {
+                                const el = document.getElementById(permIds[perm]);
+                                if (el) el.textContent = result.state;
+                            })
+                            .catch(() => {
+                                const el = document.getElementById(permIds[perm]);
+                                if (el) el.textContent = "Not Supported";
+                            });
+                    });
+                } else {
+                    [
+                        "perm-geolocation",
+                        "perm-notifications",
+                        "perm-camera",
+                        "perm-microphone",
+                        "perm-clipboard",
+                        "perm-midi",
+                    ].forEach((id) => {
+                        const el = document.getElementById(id);
+                        if (el) el.textContent = "Not Supported";
+                    });
+                }
+                try {
+                    sessionStorage.setItem("test", "test");
+                    sessionStorage.removeItem("test");
+                    document.getElementById("session-storage").innerHTML =
+                        `<span class="status-indicator status-online"></span><span>Available</span>`;
+                } catch (e) {
+                    document.getElementById("session-storage").innerHTML =
+                        `<span class="status-indicator status-offline"></span><span>Unavailable</span>`;
+                }
+                document.getElementById("indexeddb").innerHTML =
+                    `<span class="status-indicator status-${window.indexedDB ? "online" : "offline"}"></span><span>${window.indexedDB ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("websql").innerHTML =
+                    `<span class="status-indicator status-${window.openDatabase ? "online" : "offline"}"></span><span>${window.openDatabase ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("cache-api").innerHTML =
+                    `<span class="status-indicator status-${window.caches ? "online" : "offline"}"></span><span>${window.caches ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("color-depth").textContent = screen.colorDepth + " bit";
+                document.getElementById("pixel-depth").textContent = screen.pixelDepth + " bit";
+                document.getElementById("avail-width").textContent = screen.availWidth + " px";
+                document.getElementById("avail-height").textContent = screen.availHeight + " px";
+                document.getElementById("orientation").textContent = screen.orientation
+                    ? screen.orientation.type
+                    : "Unknown";
+                document.getElementById("device-pixel-ratio").textContent = window.devicePixelRatio || 1;
+                const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+                if (conn) {
+                    document.getElementById("connection-type").textContent = conn.type || "Unknown";
+                    document.getElementById("effective-type").textContent = conn.effectiveType || "Unknown";
+                    document.getElementById("downlink").textContent = conn.downlink
+                        ? conn.downlink + " Mbps"
+                        : "Unknown";
+                    document.getElementById("rtt").textContent = conn.rtt ? conn.rtt + " ms" : "Unknown";
+                } else {
+                    document.getElementById("connection-type").textContent = "Not Supported";
+                    document.getElementById("effective-type").textContent = "Not Supported";
+                    document.getElementById("downlink").textContent = "Not Supported";
+                    document.getElementById("rtt").textContent = "Not Supported";
+                }
+                document.getElementById("online-status").innerHTML =
+                    `<span class="status-indicator status-${navigator.onLine ? "online" : "offline"}"></span><span>${navigator.onLine ? "Online" : "Offline"}</span>`;
+                document.getElementById("do-not-track").textContent = navigator.doNotTrack || "Not Set";
+                document.getElementById("cpu-cores").textContent = navigator.hardwareConcurrency || "Unknown";
+                document.getElementById("device-memory").textContent = navigator.deviceMemory
+                    ? navigator.deviceMemory + " GB"
+                    : "Unknown";
+                document.getElementById("touch-points").textContent = navigator.maxTouchPoints || 0;
+                document.getElementById("max-touch-points").textContent = navigator.maxTouchPoints || 0;
+                document.getElementById("keyboard").textContent = navigator.keyboard ? "Supported" : "Not Supported";
+                document.getElementById("pointer-type").textContent = window.matchMedia("(pointer:coarse)").matches
+                    ? "Coarse"
+                    : "Fine";
+                document.getElementById("hover-capable").textContent = window.matchMedia("(hover:hover)").matches
+                    ? "Yes"
+                    : "No";
+                document.getElementById("gamepads").textContent = navigator.getGamepads ? "Supported" : "Not Supported";
+                document.getElementById("audio-context").innerHTML =
+                    `<span class="status-indicator status-${window.AudioContext || window.webkitAudioContext ? "online" : "offline"}"></span><span>${window.AudioContext || window.webkitAudioContext ? "Available" : "Unavailable"}</span>`;
+                const canvas = document.createElement("canvas");
+                const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+                document.getElementById("webgl").innerHTML =
+                    `<span class="status-indicator status-${gl ? "online" : "offline"}"></span><span>${gl ? "Available" : "Unavailable"}</span>`;
+                if (gl) {
+                    const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+                    if (debugInfo) {
+                        document.getElementById("webgl-vendor").textContent =
+                            gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL) || "Unknown";
+                        document.getElementById("webgl-renderer").textContent =
+                            gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || "Unknown";
+                    } else {
+                        document.getElementById("webgl-vendor").textContent = "Not Available";
+                        document.getElementById("webgl-renderer").textContent = "Not Available";
+                    }
+                    document.getElementById("max-texture-size").textContent =
+                        gl.getParameter(gl.MAX_TEXTURE_SIZE) || "Unknown";
+                    const maxViewport = gl.getParameter(gl.MAX_VIEWPORT_DIMS);
+                    document.getElementById("max-viewport-dims").textContent = maxViewport
+                        ? `${maxViewport[0]} × ${maxViewport[1]}`
+                        : "Unknown";
+                } else {
+                    document.getElementById("webgl-vendor").textContent = "Not Available";
+                    document.getElementById("webgl-renderer").textContent = "Not Available";
+                    document.getElementById("max-texture-size").textContent = "Not Available";
+                    document.getElementById("max-viewport-dims").textContent = "Not Available";
+                }
+                const gl2 = canvas.getContext("webgl2");
+                document.getElementById("webgl2").innerHTML =
+                    `<span class="status-indicator status-${gl2 ? "online" : "offline"}"></span><span>${gl2 ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("webgpu").innerHTML =
+                    `<span class="status-indicator status-${navigator.gpu ? "online" : "offline"}"></span><span>${navigator.gpu ? "Available" : "Unavailable"}</span>`;
+                const video = document.createElement("video");
+                const audio = document.createElement("audio");
+                const videoFormats = [];
+                const audioFormats = [];
+                if (video.canPlayType("video/mp4")) videoFormats.push("MP4");
+                if (video.canPlayType("video/webm")) videoFormats.push("WebM");
+                if (video.canPlayType("video/ogg")) videoFormats.push("Ogg");
+                if (video.canPlayType("video/quicktime")) videoFormats.push("MOV");
+                if (audio.canPlayType("audio/mp3")) audioFormats.push("MP3");
+                if (audio.canPlayType("audio/wav")) audioFormats.push("WAV");
+                if (audio.canPlayType("audio/ogg")) audioFormats.push("OGG");
+                if (audio.canPlayType("audio/aac")) audioFormats.push("AAC");
+                if (audio.canPlayType("audio/flac")) audioFormats.push("FLAC");
+                document.getElementById("video-formats").textContent =
+                    videoFormats.length > 0 ? videoFormats.join(",") : "None";
+                document.getElementById("audio-formats").textContent =
+                    audioFormats.length > 0 ? audioFormats.join(",") : "None";
+                document.getElementById("webrtc").innerHTML =
+                    `<span class="status-indicator status-${window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection ? "online" : "offline"}"></span><span>${window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("websockets").innerHTML =
+                    `<span class="status-indicator status-${window.WebSocket ? "online" : "offline"}"></span><span>${window.WebSocket ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("service-workers").innerHTML =
+                    `<span class="status-indicator status-${"serviceWorker" in navigator ? "online" : "offline"}"></span><span>${"serviceWorker" in navigator ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("web-workers").innerHTML =
+                    `<span class="status-indicator status-${window.Worker ? "online" : "offline"}"></span><span>${window.Worker ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("webassembly").innerHTML =
+                    `<span class="status-indicator status-${window.WebAssembly ? "online" : "offline"}"></span><span>${window.WebAssembly ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("bluetooth").innerHTML =
+                    `<span class="status-indicator status-${"bluetooth" in navigator ? "online" : "offline"}"></span><span>${"bluetooth" in navigator ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("usb").innerHTML =
+                    `<span class="status-indicator status-${"usb" in navigator ? "online" : "offline"}"></span><span>${"usb" in navigator ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("nfc").innerHTML =
+                    `<span class="status-indicator status-${"NDEFReader" in window ? "online" : "offline"}"></span><span>${"NDEFReader" in window ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("vr").innerHTML =
+                    `<span class="status-indicator status-${navigator.xr ? "online" : "offline"}"></span><span>${navigator.xr ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("share-api").innerHTML =
+                    `<span class="status-indicator status-${navigator.share ? "online" : "offline"}"></span><span>${navigator.share ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("performance-api").innerHTML =
+                    `<span class="status-indicator status-${window.performance ? "online" : "offline"}"></span><span>${window.performance ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("nav-timing").innerHTML =
+                    `<span class="status-indicator status-${window.performance && window.performance.timing ? "online" : "offline"}"></span><span>${window.performance && window.performance.timing ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("resource-timing").innerHTML =
+                    `<span class="status-indicator status-${window.performance && window.performance.getEntriesByType ? "online" : "offline"}"></span><span>${window.performance && window.performance.getEntriesByType ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("paint-timing").innerHTML =
+                    `<span class="status-indicator status-${window.performance && window.performance.getEntriesByType ? "online" : "offline"}"></span><span>${window.performance && window.performance.getEntriesByType ? "Available" : "Unavailable"}</span>`;
+                document.getElementById("pdf-viewer").textContent = navigator.pdfViewerEnabled ? "Enabled" : "Disabled";
+                const plugins = [];
+                for (let i = 0; i < navigator.plugins.length; i++) {
+                    plugins.push(navigator.plugins[i].name);
+                }
+                document.getElementById("plugins").textContent = plugins.length > 0 ? plugins.join(",") : "None";
+                const mimeTypes = [];
+                for (let i = 0; i < navigator.mimeTypes.length; i++) {
+                    mimeTypes.push(navigator.mimeTypes[i].type);
+                }
+                document.getElementById("mime-types").textContent = mimeTypes.length > 0 ? mimeTypes.join(",") : "None";
+                document.getElementById("languages").textContent = navigator.languages
+                    ? navigator.languages.join(",")
+                    : navigator.language;
+                document.getElementById("product").textContent = navigator.product || "Unknown";
+                document.getElementById("vendor").textContent = navigator.vendor || "Unknown";
+                document.getElementById("app-name").textContent = navigator.appName || "Unknown";
+                document.getElementById("app-version").textContent = navigator.appVersion || "Unknown";
+                document.getElementById("java-enabled").textContent = navigator.javaEnabled
+                    ? navigator.javaEnabled()
+                    : "Not Supported";
+                document.getElementById("pdf-enabled").textContent = navigator.pdfViewerEnabled ? "Yes" : "No";
+                document.getElementById("cookies-enabled").textContent = navigator.cookieEnabled ? "Yes" : "No";
+                document.getElementById("dnt-value").textContent = navigator.doNotTrack || "Not Set";
+                fetch("https://1.1.1.1/cdn-cgi/trace")
+                    .then((r) => r.text())
+                    .then((text) => {
+                        const ipMatch = text.match(/ip=([\d.]+)/);
+                        const ip = ipMatch ? ipMatch[1] : "Unknown";
+                        document.getElementById("ip").textContent = ip;
+                        return fetch(`https://ipapi.co/${ip}/json/`);
+                    })
+                    .then((r) => r.json())
+                    .then((data) => {
+                        document.getElementById("country").textContent = data.country_name || "Unknown";
+                        document.getElementById("city").textContent = data.city || "Unknown";
+                        document.getElementById("isp").textContent = data.org || "Unknown";
+                    })
+                    .catch(() => {
+                        document.getElementById("ip").textContent = "Error";
+                        document.getElementById("country").textContent = "Error";
+                        document.getElementById("city").textContent = "Error";
+                        document.getElementById("isp").textContent = "Error";
+                    });
+            }
+            function acceptCookies() {
+                localStorage.setItem("cookie-consent", "accepted");
+                document.getElementById("cookie-consent").classList.remove("show");
+            }
+        </script>
+    </body>
+</html>
