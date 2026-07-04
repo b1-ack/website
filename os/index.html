@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <meta property="og:title" content="B1ackOS">
+    <meta property="og:description" content="GNU/Linux">
+    <meta property="og:image" content="https://b1ack.net/favicon.svg">
+    <meta property="og:url" content="https://os.b1ack.net/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="alternate" hreflang="en" href="https://os.b1ack.net/en">
+    <link rel="alternate" hreflang="ru" href="https://os.b1ack.net/ru">
+    <link rel="alternate" hreflang="de" href="https://os.b1ack.net/de">
+    <link rel="alternate" hreflang="fr" href="https://os.b1ack.net/fr">
+    <link rel="alternate" hreflang="ka" href="https://os.b1ack.net/ge">
+    <link rel="alternate" hreflang="x-default" href="https://os.b1ack.net/">
+    
+    <script>
+        (function() {
+            const savedLang = localStorage.getItem('b1ack-lang');
+            const userLang = (navigator.language || navigator.userLanguage).toLowerCase().split('-')[0];
+            let targetPath = '/en';
+            const langMap = { 'de': '/de', 'fr': '/fr', 'ka': '/ge', 'ge': '/ge', 'ru': '/ru' };
+            if (savedLang && langMap[savedLang]) targetPath = langMap[savedLang];
+            else if (langMap[userLang]) targetPath = langMap[userLang];
+            window.location.replace(targetPath);
+        })();
+    </script>
+</head>
+</html>
