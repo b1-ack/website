@@ -29,7 +29,6 @@ export async function onRequest(context) {
     });
   }
 
-  // GET /api/issues — получить список issues
   if (request.method === 'GET') {
     try {
       const headers = { Accept: 'application/vnd.github+json' };
@@ -49,7 +48,6 @@ export async function onRequest(context) {
     }
   }
 
-  // POST /api/issues — создать новый issue
   if (request.method === 'POST') {
     try {
       if (!env.GITHUB_TOKEN) {
@@ -84,6 +82,5 @@ export async function onRequest(context) {
     }
   }
 
-  // Неподдерживаемый метод
   return jsonResponse({ error: 'Method not allowed' }, 405);
 }
