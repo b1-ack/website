@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B1ack</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:title" content="B1ack">
+    <meta property="og:description" content="Calmness always here">
+    <meta property="og:image" content="https://b1ack.net/favicon.svg">
+    <meta property="og:url" content="https://b1ack.net/generator">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+<script>
+        (function() {
+            const savedLang = localStorage.getItem('b1ack-lang');
+            const userLang = (navigator.language || navigator.userLanguage).toLowerCase().split('-')[0];
+            let targetPath = '/en/generator';
+            const langMap = { 'de': '/de/generator', 'fr': '/fr/generator', 'ka': '/ge/generator', 'ge': '/ge/generator', 'ru': '/ru/generator' };
+            if (savedLang && langMap[savedLang]) targetPath = langMap[savedLang];
+            else if (langMap[userLang]) targetPath = langMap[userLang];
+            window.location.replace(targetPath);
+        })();
+    </script>
+</head>
+</html>
