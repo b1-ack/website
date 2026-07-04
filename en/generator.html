@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="de" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,9 @@
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="stylesheet" href="../css/generator.css">
     <meta property="og:title" content="B1ack">
-    <meta property="og:description" content="Calmness always here">
+    <meta property="og:description" content="Gelassenheit immer hier">
     <meta property="og:image" content="https://b1ack.net/favicon.svg">
-    <meta property="og:url" content="https://b1ack.net/en/generator">
+    <meta property="og:url" content="https://b1ack.net/de/generator">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="alternate" hreflang="en" href="https://b1ack.net/en/generator">
@@ -23,67 +23,62 @@
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "B1ack",
-      "url": "https://b1ack.net/en/generator",
-      "description": "Calmness always here",
-      "isPartOf": {"@type": "WebSite", "url": "https://b1ack.net/en"}
+      "url": "https://b1ack.net/de/generator",
+      "description": "Gelassenheit immer hier",
+      "isPartOf": {"@type": "WebSite", "url": "https://b1ack.net/de"}
     }
     </script>
 </head>
 <body>
     <header>
         <div class="header-container">
-            <a href="." class="logo">
-                <img src="../img/b1ack.svg" alt="B1ack Logo">
-                <span class="logo-text">B1ack</span>
-            </a>
+            <a href="." class="logo"><img src="../img/b1ack.svg" alt="B1ack Logo"><span class="logo-text">B1ack</span></a>
             <nav class="nav" id="nav">
                 <div class="nav-lang-bar">
-                    <a href="/en/generator" class="nav-lang-btn active"><img src="../img/icons/en.png" alt="en"></a>
+                    <a href="/en/generator" class="nav-lang-btn"><img src="../img/icons/en.png" alt="en"></a>
                     <a href="/ru/generator" class="nav-lang-btn"><img src="../img/icons/ru.png" alt="ru"></a>
-                    <a href="/de/generator" class="nav-lang-btn"><img src="../img/icons/de.png" alt="de"></a>
+                    <a href="/de/generator" class="nav-lang-btn active"><img src="../img/icons/de.png" alt="de"></a>
                     <a href="/fr/generator" class="nav-lang-btn"><img src="../img/icons/fr.png" alt="fr"></a>
                     <a href="/ge/generator" class="nav-lang-btn"><img src="../img/icons/ge.png" alt="ge"></a>
                 </div>
-                <a href="." class="nav-link">Home</a>
-                <a href="https://os.b1ack.net/en" class="nav-link">System</a>
-                <a href="https://wiki.b1ack.net" class="nav-link">Documentation</a>
+                <a href="." class="nav-link">Startseite</a>
+                <a href="https://os.b1ack.net/de" class="nav-link">System</a>
+                <a href="https://wiki.b1ack.net" class="nav-link">Dokumentation</a>
                 <div class="nav-more" id="nav-more">
-                    <button class="nav-more-toggle" id="nav-more-toggle" aria-label="More">
+                    <button class="nav-more-toggle" id="nav-more-toggle" aria-label="Mehr">
                         <svg class="more-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
                             <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
                     <div class="nav-more-menu" id="nav-more-menu">
                         <div class="nav-more-header-section">
-                            <a href="fingerprint" class="nav-link">Fingerprint</a>
-                            <a href="generator" class="nav-link">Generator</a>
+                            <a href="fingerprint" class="nav-link">Fingerabdruck</a>
+                            <a href="generator" class="nav-link active">Generator</a>
                         </div>
                         <div class="nav-more-body-section">
                             <div class="nav-more-grid">
-                                <a href="fingerprint" class="nav-link">Fingerprint</a>
-                                <a href="generator" class="nav-link">Generator</a>
+                                <a href="fingerprint" class="nav-link">Fingerabdruck</a>
+                                <a href="generator" class="nav-link active">Generator</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a href="donate" class="nav-link donate-link">Donate</a>
+                <a href="donate" class="nav-link donate-link">Spenden</a>
             </nav>
             <div class="controls">
-                <button class="control-btn" id="theme-toggle">
-                    <img class="theme-icon theme-img" id="theme-icon" src="../img/icons/dark.png" alt="Theme">
-                </button>
+                <button class="control-btn" id="theme-toggle"><img class="theme-icon theme-img" id="theme-icon" src="../img/icons/dark.png" alt="Theme"></button>
                 <div class="lang-dropdown">
-                    <button class="control-btn lang-dropdown-btn" id="lang-toggle">
-                        <img class="lang-icon" id="lang-icon" src="../img/icons/en.png" alt="Language">
-                    </button>
-                    <div class="lang-dropdown-menu" id="lang-dropdown-menu">
-                        <button class="lang-dropdown-item active" data-lang="en"><img src="../img/icons/en.png" alt="en"><span class="lang-name">English</span><span class="lang-check">✓</span></button>
-                        <button class="lang-dropdown-item" data-lang="ru"><img src="../img/icons/ru.png" alt="ru"><span class="lang-name">Русский</span><span class="lang-check">✓</span></button>
-                        <button class="lang-dropdown-item" data-lang="de"><img src="../img/icons/de.png" alt="de"><span class="lang-name">Deutsch</span><span class="lang-check">✓</span></button>
-                        <button class="lang-dropdown-item" data-lang="fr"><img src="../img/icons/fr.png" alt="fr"><span class="lang-name">Français</span><span class="lang-check">✓</span></button>
-                        <button class="lang-dropdown-item" data-lang="ge"><img src="../img/icons/ge.png" alt="ge"><span class="lang-name">ქართული</span><span class="lang-check">✓</span></button>
-                    </div>
+                <button class="control-btn lang-dropdown-btn" id="lang-toggle">
+                    <img class="lang-icon" id="lang-icon" src="../img/icons/de.png" alt="Language">
+                </button>
+                <div class="lang-dropdown-menu" id="lang-dropdown-menu">
+                    <button class="lang-dropdown-item" data-lang="en"><img src="../img/icons/en.png" alt="en"><span class="lang-name">English</span><span class="lang-check">✓</span></button>
+                    <button class="lang-dropdown-item" data-lang="ru"><img src="../img/icons/ru.png" alt="ru"><span class="lang-name">Русский</span><span class="lang-check">✓</span></button>
+                    <button class="lang-dropdown-item active" data-lang="de"><img src="../img/icons/de.png" alt="de"><span class="lang-name">Deutsch</span><span class="lang-check">✓</span></button>
+                    <button class="lang-dropdown-item" data-lang="fr"><img src="../img/icons/fr.png" alt="fr"><span class="lang-name">Français</span><span class="lang-check">✓</span></button>
+                    <button class="lang-dropdown-item" data-lang="ge"><img src="../img/icons/ge.png" alt="ge"><span class="lang-name">ქართული</span><span class="lang-check">✓</span></button>
                 </div>
+            </div>
                 <a href="donate" class="control-btn"><img class="theme-img" src="../img/icons/donate.png" alt="Donate"></a>
                 <button class="menu-toggle" id="menu-toggle">
                     <span></span>
@@ -95,16 +90,16 @@
     </header>
     <main>
         <div class="container">
-            <h1>Data Generator</h1>
+            <h1>Daten Generator</h1>
             <div class="generator-grid">
                 <div class="card full-width">
                     <div class="card-header">
                         <div class="card-title">
                             <span class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-                            <span>Password</span>
+                            <span>Passwort</span>
                         </div>
                         <div class="password-options">
-                            <input type="number" class="password-length" id="password-length" value="16" min="4" max="128" title="Length">
+                            <input type="number" class="password-length" id="password-length" value="16" min="4" max="128" title="Länge">
                             <button class="password-btn active" id="password-uppercase" onclick="togglePasswordOption('uppercase')" title="A-Z">A-Z</button>
                             <button class="password-btn active" id="password-lowercase" onclick="togglePasswordOption('lowercase')" title="a-z">a-z</button>
                             <button class="password-btn active" id="password-digits" onclick="togglePasswordOption('digits')" title="0-9">0-9</button>
@@ -114,11 +109,9 @@
                     </div>
                     <div class="result-container">
                         <div class="result" id="password-result">...</div>
-                        <button class="copy-btn" onclick="copyToClipboard('password-result', this)">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        </button>
+                        <button class="copy-btn" onclick="copyToClipboard('password-result', this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
                     </div>
-                    <button class="generate-btn" onclick="generatePassword()">Generate</button>
+                    <button class="generate-btn" onclick="generatePassword()">Generieren</button>
                 </div>
                 <div class="card triple-width">
                     <div class="card-header">
@@ -133,45 +126,39 @@
                     </div>
                     <div class="result-container">
                         <div class="result" id="person-result">...</div>
-                        <button class="copy-btn" onclick="copyToClipboard('person-result', this)">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        </button>
+                        <button class="copy-btn" onclick="copyToClipboard('person-result', this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
                     </div>
-                    <button class="generate-btn" onclick="generatePerson()">Generate</button>
+                    <button class="generate-btn" onclick="generatePerson()">Generieren</button>
                 </div>
                 <div class="card triple-width">
                     <div class="card-header">
                         <div class="card-title">
                             <span class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
-                            <span>Username</span>
+                            <span>Benutzername</span>
                         </div>
                         <div class="username-options">
-                            <input type="number" class="password-length" id="username-length" value="10" min="4" max="32" title="Length">
+                            <input type="number" class="password-length" id="username-length" value="10" min="4" max="32" title="Länge">
                             <button class="password-btn" id="username-numbers" onclick="toggleUsernameNumbers()" title="0-9">123</button>
                         </div>
                     </div>
                     <div class="result-container">
                         <div class="result" id="username-result">...</div>
-                        <button class="copy-btn" onclick="copyToClipboard('username-result', this)">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        </button>
+                        <button class="copy-btn" onclick="copyToClipboard('username-result', this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
                     </div>
-                    <button class="generate-btn" onclick="generateUsername()">Generate</button>
+                    <button class="generate-btn" onclick="generateUsername()">Generieren</button>
                 </div>
                 <div class="card triple-width">
                     <div class="card-header">
                         <div class="card-title">
                             <span class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
-                            <span>Date of Birth</span>
+                            <span>Geburtsdatum</span>
                         </div>
                     </div>
                     <div class="result-container">
                         <div class="result" id="dob-result">...</div>
-                        <button class="copy-btn" onclick="copyToClipboard('dob-result', this)">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        </button>
+                        <button class="copy-btn" onclick="copyToClipboard('dob-result', this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
                     </div>
-                    <button class="generate-btn" onclick="generateDOB()">Generate</button>
+                    <button class="generate-btn" onclick="generateDOB()">Generieren</button>
                 </div>
                 <div class="card full-width">
                     <div class="card-header">
@@ -180,16 +167,16 @@
                             <span>User Agent</span>
                         </div>
                         <div class="username-options">
-                            <select class="option-select" id="ua-os" style="min-width: 100px;">
-                                <option value="random">Random</option>
+                            <select class="option-select" id="ua-os" style="min-width:100px;">
+                                <option value="random">Zufällig</option>
                                 <option value="Windows">Windows</option>
                                 <option value="macOS">macOS</option>
                                 <option value="Linux">Linux</option>
                                 <option value="Android">Android</option>
                                 <option value="iOS">iOS</option>
                             </select>
-                            <select class="option-select" id="ua-browser" style="min-width: 90px;">
-                                <option value="random">Random</option>
+                            <select class="option-select" id="ua-browser" style="min-width:90px;">
+                                <option value="random">Zufällig</option>
                                 <option value="Chrome">Chrome</option>
                                 <option value="Firefox">Firefox</option>
                                 <option value="Safari">Safari</option>
@@ -200,11 +187,9 @@
                     </div>
                     <div class="result-container">
                         <div class="result" id="ua-result">...</div>
-                        <button class="copy-btn" onclick="copyToClipboard('ua-result', this)">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        </button>
+                        <button class="copy-btn" onclick="copyToClipboard('ua-result', this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
                     </div>
-                    <button class="generate-btn" onclick="generateUA()">Generate</button>
+                    <button class="generate-btn" onclick="generateUA()">Generieren</button>
                 </div>
                 <div class="card double-width">
                     <div class="card-header">
@@ -215,11 +200,9 @@
                     </div>
                     <div class="result-container">
                         <div class="result" id="uuid-result">...</div>
-                        <button class="copy-btn" onclick="copyToClipboard('uuid-result', this)">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        </button>
+                        <button class="copy-btn" onclick="copyToClipboard('uuid-result', this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
                     </div>
-                    <button class="generate-btn" onclick="generateUUID()">Generate</button>
+                    <button class="generate-btn" onclick="generateUUID()">Generieren</button>
                 </div>
                 <div class="card double-width">
                     <div class="card-header">
@@ -230,17 +213,15 @@
                     </div>
                     <div class="result-container">
                         <div class="result" id="mac-result">...</div>
-                        <button class="copy-btn" onclick="copyToClipboard('mac-result', this)">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        </button>
+                        <button class="copy-btn" onclick="copyToClipboard('mac-result', this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
                     </div>
-                    <button class="generate-btn" onclick="generateMAC()">Generate</button>
+                    <button class="generate-btn" onclick="generateMAC()">Generieren</button>
                 </div>
                 <div class="card full-width">
                     <div class="card-header">
                         <div class="card-title">
                             <span class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
-                            <span>Bank Card</span>
+                            <span>Bankkarte</span>
                         </div>
                         <div class="gender-toggle">
                             <button class="gender-btn active" id="card-visa" onclick="setCardType('Visa')" title="Visa">Visa</button>
@@ -250,19 +231,17 @@
                     </div>
                     <div class="result-container">
                         <div class="result" id="card-result">...</div>
-                        <button class="copy-btn" onclick="copyToClipboard('card-result', this)">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        </button>
+                        <button class="copy-btn" onclick="copyToClipboard('card-result', this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
                     </div>
-                    <button class="generate-btn" onclick="generateCard()">Generate</button>
+                    <button class="generate-btn" onclick="generateCard()">Generieren</button>
                 </div>
             </div>
         </div>
     </main>
     <div id="cookie-consent" class="cookie-consent">
         <h3><span class="cookie-dot"></span>Cookies</h3>
-        <p>We do not collect or store your cookies.</p>
-        <button class="cookie-btn" onclick="acceptCookies()">Accept</button>
+        <p>Wir sammeln und speichern keine Cookies.</p>
+        <button class="cookie-btn" onclick="acceptCookies()">Akzeptieren</button>
     </div>
     <footer>
         <div class="footer-container">
@@ -276,7 +255,7 @@
             </div>
             <div class="footer-right">
                 <a href="https://www.gnu.org/licenses/fdl-1.3.en.html" title="GNU Free Documentation License">
-                    <img src="https://www.gnu.org/graphics/gfdl-logo-tiny.png" alt="GFDL" style="height: 24px;">
+                    <img src="https://www.gnu.org/graphics/gfdl-logo-tiny.png" alt="GFDL" style="height:24px;">
                 </a>
             </div>
         </div>
