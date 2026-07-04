@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B1ack - Донат</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../css/donate.css">
+
+    <meta property="og:title" content="B1ack">
+    <meta property="og:description" content="Спокойствие всегда здесь">
+    <meta property="og:image" content="https://b1ack.net/favicon.svg">
+    <meta property="og:url" content="https://b1ack.net/ru/donate">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="alternate" hreflang="en" href="https://b1ack.net/en/donate">
+    <link rel="alternate" hreflang="ru" href="https://b1ack.net/ru/donate">
+    <link rel="alternate" hreflang="de" href="https://b1ack.net/de/donate">
+    <link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/donate">
+    <link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/donate">
+    <link rel="alternate" hreflang="x-default" href="https://b1ack.net/donate">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "B1ack",
+      "url": "https://b1ack.net/ru/donate",
+      "description": "Спокойствие всегда здесь",
+      "isPartOf": {"@type": "WebSite", "url": "https://b1ack.net/ru"}
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="." class="logo"><img src="../img/b1ack.svg" alt="B1ack Logo"><span class="logo-text">B1ack</span></a>
+            <nav class="nav" id="nav">
+                <div class="nav-lang-bar">
+                    <a href="/en/donate" class="nav-lang-btn"><img src="../img/icons/en.png" alt="en"></a>
+                    <a href="/ru/donate" class="nav-lang-btn active"><img src="../img/icons/ru.png" alt="ru"></a>
+                    <a href="/de/donate" class="nav-lang-btn"><img src="../img/icons/de.png" alt="de"></a>
+                    <a href="/fr/donate" class="nav-lang-btn"><img src="../img/icons/fr.png" alt="fr"></a>
+                    <a href="/ge/donate" class="nav-lang-btn"><img src="../img/icons/ge.png" alt="ge"></a>
+                </div>
+                <a href="." class="nav-link">Главная</a>
+                <a href="https://os.b1ack.net/ru" class="nav-link">Система</a>
+                <a href="https://wiki.b1ack.net" class="nav-link">Документация</a>
+                <div class="nav-more" id="nav-more">
+                    <button class="nav-more-toggle" id="nav-more-toggle" aria-label="Ещё">
+                        <svg class="more-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="nav-more-menu" id="nav-more-menu">
+                        <div class="nav-more-header-section">
+                            <a href="fingerprint" class="nav-link">Отпечаток</a>
+                            <a href="generator" class="nav-link">Генератор</a>
+                        </div>
+                        <div class="nav-more-body-section">
+                            <div class="nav-more-grid">
+                                <a href="fingerprint" class="nav-link">Отпечаток</a>
+                                <a href="generator" class="nav-link">Генератор</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="donate" class="nav-link donate-link">Донат</a>
+            </nav>
+            <div class="controls">
+                <button class="control-btn" id="theme-toggle"><img class="theme-icon theme-img" id="theme-icon" src="../img/icons/dark.png" alt="Theme"></button>
+                <div class="lang-dropdown">
+                    <button class="control-btn lang-dropdown-btn" id="lang-toggle">
+                        <img class="lang-icon" id="lang-icon" src="../img/icons/ru.png" alt="Language">
+                    </button>
+                    <div class="lang-dropdown-menu" id="lang-dropdown-menu">
+                        <button class="lang-dropdown-item" data-lang="en"><img src="../img/icons/en.png" alt="en"><span class="lang-name">English</span><span class="lang-check">✓</span></button>
+                        <button class="lang-dropdown-item active" data-lang="ru"><img src="../img/icons/ru.png" alt="ru"><span class="lang-name">Русский</span><span class="lang-check">✓</span></button>
+                        <button class="lang-dropdown-item" data-lang="de"><img src="../img/icons/de.png" alt="de"><span class="lang-name">Deutsch</span><span class="lang-check">✓</span></button>
+                        <button class="lang-dropdown-item" data-lang="fr"><img src="../img/icons/fr.png" alt="fr"><span class="lang-name">Français</span><span class="lang-check">✓</span></button>
+                        <button class="lang-dropdown-item" data-lang="ge"><img src="../img/icons/ge.png" alt="ge"><span class="lang-name">ქართული</span><span class="lang-check">✓</span></button>
+                    </div>
+                </div>
+                <a href="donate" class="control-btn active"><img class="theme-img" src="../img/icons/donate.png" alt="Donate"></a>
+                <button class="menu-toggle" id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="donate-container">
+            <div class="donate-card">
+                <iframe id='kofiframe' src='https://ko-fi.com/b1acknet/?hidefeed=true&widget=true&embed=true&preview=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='b1acknet'></iframe>
+            </div>
+        </div>
+    </main>
+    <div id="cookie-consent" class="cookie-consent">
+        <h3><span class="cookie-dot"></span>Cookies</h3>
+        <p>Мы не собираем и не храним ваши файлы cookie.</p>
+        <button class="cookie-btn" onclick="acceptCookies()">Принять</button>
+    </div>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-left">
+                <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html"><img src="https://www.gnu.org/graphics/gplv3-or-later.png" alt="GPLv3" width="88" height="31" loading="lazy"></a>
+            </div>
+            <div class="footer-center">
+                <a href="mailto:support@b1ack.net">support@b1ack.net</a>
+                <a href="https://github.com/b1-ack" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://t.me/b1ackchannel" target="_blank" rel="noopener">Telegram</a>
+            </div>
+            <div class="footer-right">
+                <a href="https://www.gnu.org/licenses/fdl-1.3.en.html" title="GNU Free Documentation License">
+                    <img src="https://www.gnu.org/graphics/gfdl-logo-tiny.png" alt="GFDL" style="height: 24px;">
+                </a>
+            </div>
+        </div>
+    </footer>
+    <script src="../js/donate.js"></script>
+</body>
+</html>
