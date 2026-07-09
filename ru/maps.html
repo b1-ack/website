@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B1ack - Карты</title>
+    <link rel="icon" type="image/svg+xml" href="../img/icons/maps.svg">
+    <link rel="stylesheet" href="../css/maps.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <meta property="og:title" content="B1ack">
+    <meta property="og:description" content="Исследуйте места с интерактивными картами">
+    <meta name="description" content="Исследуйте места с интерактивными картами">
+    <meta property="og:image" content="https://b1ack.net/favicon.svg">
+    <meta property="og:url" content="https://b1ack.net/ru/maps">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="alternate" hreflang="en" href="https://b1ack.net/en/maps">
+    <link rel="alternate" hreflang="ru" href="https://b1ack.net/ru/maps">
+    <link rel="alternate" hreflang="de" href="https://b1ack.net/de/maps">
+    <link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/maps">
+    <link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/maps">
+    <link rel="alternate" hreflang="x-default" href="https://b1ack.net/maps">
+    <link rel="canonical" href="https://b1ack.net/ru/maps">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "B1ack",
+      "url": "https://b1ack.net/ru/maps",
+      "description": "Исследуйте места с интерактивными картами",
+      "isPartOf": {"@type": "WebSite", "url": "https://b1ack.net/ru"}
+    }
+    </script>
+</head>
+<body class="maps-page">
+    <header>
+        <div class="header-container">
+            <a href="." class="logo"><img src="../img/b1ack.svg" alt="B1ack Logo"><span class="logo-text">B1ack</span></a>
+            <nav class="nav" id="nav">
+                <div class="nav-lang-bar">
+                    <a href="/en/maps" class="nav-lang-btn"><img src="../img/icons/en.png" alt="en"></a>
+                    <a href="/ru/maps" class="nav-lang-btn active"><img src="../img/icons/ru.png" alt="ru"></a>
+                    <a href="/de/maps" class="nav-lang-btn"><img src="../img/icons/de.png" alt="de"></a>
+                    <a href="/fr/maps" class="nav-lang-btn"><img src="../img/icons/fr.png" alt="fr"></a>
+                    <a href="/ge/maps" class="nav-lang-btn"><img src="../img/icons/ge.png" alt="ge"></a>
+                </div>
+                <a href="." class="nav-link">Главная</a>
+                <a href="https://os.b1ack.net/ru" class="nav-link">Система</a>
+                <a href="https://wiki.b1ack.net" class="nav-link">Документация</a>
+                <div class="nav-more" id="nav-more">
+                    <button class="nav-more-toggle" id="nav-more-toggle" aria-label="Ещё">
+                        <svg class="more-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="nav-more-menu" id="nav-more-menu">
+                        <div class="nav-more-header-section">
+                            <a href="maps" class="nav-link active">Карты</a>
+                            <a href="weather" class="nav-link">Погода</a>
+                            <a href="fingerprint" class="nav-link">Отпечаток</a>
+                            <a href="generator" class="nav-link">Генератор</a>
+                        </div>
+                        <div class="nav-more-body-section">
+                            <div class="nav-more-grid">
+                                <a href="maps" class="nav-link active">Карты</a>
+                                <a href="weather" class="nav-link">Погода</a>
+                                <a href="fingerprint" class="nav-link">Отпечаток</a>
+                                <a href="generator" class="nav-link">Генератор</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="donate" class="nav-link donate-link">Донат</a>
+            </nav>
+            <div class="controls">
+                <button class="control-btn" id="theme-toggle"><img class="theme-icon theme-img" id="theme-icon" src="../img/icons/dark.png" alt="Theme"></button>
+                <div class="lang-dropdown">
+                    <button class="control-btn lang-dropdown-btn" id="lang-toggle">
+                        <img class="lang-icon" id="lang-icon" src="../img/icons/ru.png" alt="Language">
+                    </button>
+                    <div class="lang-dropdown-menu" id="lang-dropdown-menu">
+                        <button class="lang-dropdown-item" data-lang="en"><img src="../img/icons/en.png" alt="en"><span class="lang-name">English</span><span class="lang-check">✓</span></button>
+                        <button class="lang-dropdown-item active" data-lang="ru"><img src="../img/icons/ru.png" alt="ru"><span class="lang-name">Русский</span><span class="lang-check">✓</span></button>
+                        <button class="lang-dropdown-item" data-lang="de"><img src="../img/icons/de.png" alt="de"><span class="lang-name">Deutsch</span><span class="lang-check">✓</span></button>
+                        <button class="lang-dropdown-item" data-lang="fr"><img src="../img/icons/fr.png" alt="fr"><span class="lang-name">Français</span><span class="lang-check">✓</span></button>
+                        <button class="lang-dropdown-item" data-lang="ge"><img src="../img/icons/ge.png" alt="ge"><span class="lang-name">ქართული</span><span class="lang-check">✓</span></button>
+                    </div>
+                </div>
+                <a href="donate" class="control-btn"><img class="theme-img" src="../img/icons/donate.png" alt="Donate"></a>
+                <button class="menu-toggle" id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div id="cookie-consent" class="cookie-consent">
+            <h3><span class="cookie-dot"></span>Cookies</h3>
+            <p>Мы не собираем и не храним ваши файлы cookie.</p>
+            <button class="cookie-btn" onclick="acceptCookies()">Принять</button>
+        </div>
+        <div class="container">
+            <div id="map">
+                <div class="maps-search-wrap" id="maps-search-wrap">
+                    <div class="maps-search-input-wrap" id="maps-search-input-wrap">
+                        <div class="maps-search-row maps-row-dest">
+                            <input class="maps-search-input" id="map-search-input" type="text" placeholder="Поиск места..." autocomplete="off">
+                            <svg class="maps-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <button class="maps-search-clear" id="map-search-clear">&times;</button>
+                            <div class="maps-search-ac" id="map-ac"></div>
+                        </div>
+                        <div class="maps-search-route" id="maps-search-route" style="display:none">
+                            <div class="maps-stops-wrapper" id="maps-stops-wrapper"></div>
+                            <button class="maps-stop-add" id="maps-stop-add" title="Добавить остановку">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            </button>
+                            <div class="maps-route-footer" id="maps-route-footer">
+                                <div class="maps-route-modes-line" id="maps-route-modes-line">
+                                    <div class="maps-route-modes-left">
+                                        <button class="maps-route-btn active" data-mode="driving" title="Машина">
+                                            <img src="../img/icons/car.svg" alt="Машина" width="16" height="16" class="theme-img">
+                                        </button>
+                                        <button class="maps-route-btn" data-mode="transit" title="Транспорт">
+                                            <img src="../img/icons/bus.png" alt="Транспорт" width="16" height="16" class="theme-img">
+                                        </button>
+                                        <button class="maps-route-btn" data-mode="cycling" title="Велосипед">
+                                            <img src="../img/icons/bike.svg" alt="Велосипед" width="16" height="16" class="theme-img">
+                                        </button>
+                                        <button class="maps-route-btn" data-mode="walking" title="Пешком">
+                                            <img src="../img/icons/walk.svg" alt="Пешком" width="16" height="16" class="theme-img">
+                                        </button>
+                                    </div>
+                                    <div class="maps-route-modes-right">
+                                        <button class="maps-share-btn" id="maps-share-btn" title="Поделиться">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                                        </button>
+                                        <button class="maps-go-btn" id="maps-go-btn" title="В путь">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="maps-route-summary" id="maps-route-summary"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="locate-btn" class="locate-btn" title="Определить местоположение" aria-label="Определить местоположение">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.map = L.map('map', {
+            zoomControl: false
+        }).setView([55.7558, 37.6173], 10);
+        L.control.zoom({ position: 'bottomright' }).addTo(map);
+        function roundNum(num) {
+            var pow10 = Math.pow(10, Math.floor(Math.log10(num)));
+            var d = num / pow10;
+            d = d >= 10 ? 10 : d >= 5 ? 5 : d >= 3 ? 3 : d >= 2 ? 2 : 1;
+            return pow10 * d;
+        }
+
+        function getScalePrefix() {
+            var center = map.getCenter();
+            var maxWidth = 150;
+            var point1 = map.latLngToContainerPoint(center);
+            var point2 = L.point(point1.x + maxWidth, point1.y);
+            var latLng2 = map.containerPointToLatLng(point2);
+            var distance = center.distanceTo(latLng2);
+            var rounded = roundNum(distance);
+            var scaledWidth = Math.min((rounded / distance) * maxWidth, 300);
+            var text;
+            if (rounded >= 1000) {
+                var km = rounded / 1000;
+                text = (km % 1 === 0 ? km : km.toFixed(1)) + ' км';
+            } else {
+                text = rounded + ' м';
+            }
+            return '<span class="attr-scale-line" style="width:' + scaledWidth + 'px"></span><span class="attr-scale-text">' + text + '</span>';
+        }
+
+        map.attributionControl.setPrefix(getScalePrefix());
+        map.on('zoomend moveend', function() {
+            map.attributionControl.setPrefix(getScalePrefix());
+        });
+
+        var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '<a href="https://b1ack.net">B1ack</a> | <a href="https://leafletjs.com">Leaflet</a> | <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> &copy;',
+            maxZoom: 19
+        });
+        window.osm = osm;
+
+        var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '<a href="https://b1ack.net">B1ack</a> | <a href="https://leafletjs.com">Leaflet</a> | <a href="https://esri.com">Esri</a> &copy;',
+            maxZoom: 19
+        });
+
+        var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            attribution: '<a href="https://b1ack.net">B1ack</a> | <a href="https://leafletjs.com">Leaflet</a> | <a href="https://opentopomap.org">OpenTopoMap</a> &copy;',
+            maxZoom: 17
+        });
+
+        var saved = localStorage.getItem('maps-layer');
+        if (saved === 'satellite') satellite.addTo(map);
+        else if (saved === 'topo') topo.addTo(map);
+        else {
+            osm.addTo(map);
+            if (localStorage.getItem('theme') !== 'light') {
+                var mapEl = document.getElementById('map');
+                mapEl.classList.add('theme-dark');
+                mapEl.style.backgroundColor = '#0a0a0a';
+            }
+        }
+
+        var layerNames = {
+            'Карта': 'map',
+            'Спутник': 'satellite',
+            'Топо': 'topo'
+        };
+
+        L.control.layers({
+            'Карта': osm,
+            'Спутник': satellite,
+            'Топология': topo
+        }, null, {
+            position: 'bottomleft'
+        }).addTo(map);
+
+        map.on('baselayerchange', function(e) {
+            localStorage.setItem('maps-layer', layerNames[e.name] || e.name);
+            var mapEl = document.getElementById('map');
+            if (e.name === 'Карта' && document.documentElement.getAttribute('data-theme') === 'dark') {
+                mapEl.classList.add('theme-dark');
+                mapEl.style.backgroundColor = '#0a0a0a';
+            } else {
+                mapEl.classList.remove('theme-dark');
+                mapEl.style.backgroundColor = '';
+            }
+        });
+
+        var locateMarker = null;
+
+        document.getElementById('locate-btn').addEventListener('click', function() {
+            if (!navigator.geolocation) {
+                this.classList.add('error');
+                setTimeout(function(btn) { btn.classList.remove('error'); }, 2000, this);
+                return;
+            }
+            this.classList.add('loading');
+            navigator.geolocation.getCurrentPosition(
+                function(pos) {
+                    this.classList.remove('loading');
+                    this.classList.add('located');
+                    map.setView([pos.coords.latitude, pos.coords.longitude], 15);
+                    if (locateMarker) map.removeLayer(locateMarker);
+                    locateMarker = L.circleMarker([pos.coords.latitude, pos.coords.longitude], {
+                        radius: 10,
+                        color: '#3b82f6',
+                        fillColor: '#3b82f6',
+                        fillOpacity: 0.3,
+                        weight: 2
+                    }).addTo(map);
+                    setTimeout(function(btn) { btn.classList.remove('located'); }, 3000, this);
+                }.bind(this),
+                function() {
+                    this.classList.remove('loading');
+                    this.classList.add('error');
+                    setTimeout(function(btn) { btn.classList.remove('error'); }, 2000, this);
+                }.bind(this),
+                { enableHighAccuracy: true, timeout: 10000 }
+            );
+        });
+    });
+    </script>
+    <script src="../js/maps.js"></script>
+</body>
+</html>
