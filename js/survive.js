@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const lang = item.dataset.lang;
                 const page = getPageName();
                 localStorage.setItem('b1ack-lang', lang);
-                window.location.href = `../${lang}/${page}`;
+                window.location.href = `../${lang}/${page}` + window.location.hash;
             });
         });
     }

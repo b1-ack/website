@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const nextLang = langOrder[(idx + 1) % langOrder.length];
             const page = getPageName();
             localStorage.setItem('b1ack-lang', nextLang);
-            window.location.href = `../${nextLang}/${page}`;
+            window.location.href = `../${nextLang}/${page}` + window.location.hash;
         });
     }
 

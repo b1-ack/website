@@ -52,6 +52,26 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://b1ack.net/en/maps</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://b1ack.net/en/maps"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://b1ack.net/ru/maps"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://b1ack.net/de/maps"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/maps"/>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/maps"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://b1ack.net/maps"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://b1ack.net/en/weather</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://b1ack.net/en/weather"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://b1ack.net/ru/weather"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://b1ack.net/de/weather"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/weather"/>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/weather"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://b1ack.net/weather"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://b1ack.net/ru</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://b1ack.net/en"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://b1ack.net/ru"/>
@@ -89,6 +109,26 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/donate"/>
     <xhtml:link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/donate"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://b1ack.net/donate"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://b1ack.net/ru/maps</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://b1ack.net/en/maps"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://b1ack.net/ru/maps"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://b1ack.net/de/maps"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/maps"/>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/maps"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://b1ack.net/maps"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://b1ack.net/ru/weather</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://b1ack.net/en/weather"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://b1ack.net/ru/weather"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://b1ack.net/de/weather"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/weather"/>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/weather"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://b1ack.net/weather"/>
     <priority>0.7</priority>
   </url>
   <url>
@@ -132,6 +172,26 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://b1ack.net/de/maps</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://b1ack.net/en/maps"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://b1ack.net/ru/maps"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://b1ack.net/de/maps"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/maps"/>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/maps"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://b1ack.net/maps"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://b1ack.net/de/weather</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://b1ack.net/en/weather"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://b1ack.net/ru/weather"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://b1ack.net/de/weather"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/weather"/>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/weather"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://b1ack.net/weather"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://b1ack.net/fr</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://b1ack.net/en"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://b1ack.net/ru"/>
@@ -172,6 +232,26 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://b1ack.net/fr/maps</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://b1ack.net/en/maps"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://b1ack.net/ru/maps"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://b1ack.net/de/maps"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/maps"/>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/maps"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://b1ack.net/maps"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://b1ack.net/fr/weather</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://b1ack.net/en/weather"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://b1ack.net/ru/weather"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://b1ack.net/de/weather"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/weather"/>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/weather"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://b1ack.net/weather"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://b1ack.net/ge</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://b1ack.net/en"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://b1ack.net/ru"/>
@@ -209,6 +289,26 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/donate"/>
     <xhtml:link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/donate"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://b1ack.net/donate"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://b1ack.net/ge/maps</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://b1ack.net/en/maps"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://b1ack.net/ru/maps"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://b1ack.net/de/maps"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/maps"/>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/maps"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://b1ack.net/maps"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://b1ack.net/ge/weather</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://b1ack.net/en/weather"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://b1ack.net/ru/weather"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://b1ack.net/de/weather"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/weather"/>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/weather"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://b1ack.net/weather"/>
     <priority>0.7</priority>
   </url>
 </urlset>

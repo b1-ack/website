@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.stopPropagation();
                 const lang = item.dataset.lang;
                 localStorage.setItem('b1ack-lang', lang);
-                window.location.href = '/' + lang;
+                window.location.href = '/' + lang + window.location.hash;
             });
         });
     }
@@ -146,6 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     loadGitHubIssues();
+    loadHashes();
 
     if (backToTopBtn) {
         window.addEventListener('scroll', function () {
@@ -655,4 +656,45 @@ function langLoadError() {
     return msgs[currentLang] || msgs['en'];
 }
 
+async function loadHashes() {
+    try {
+        const response = await fetch('hash.html');
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const rows = doc.querySelectorAll('table tr');
+
+        const hashMap = {};
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            if (cells.length === 2) {
+                const filename = cells[0].textContent.trim();
+                const hash = cells[1].textContent.trim();
+                if (filename && hash) {
+                    hashMap[filename] = hash;
+                }
+            }
+        });
+
+        document.querySelectorAll('.hash-icon').forEach(icon => {
+            const card = icon.closest('.os-card');
+            const downloadBtn = card.querySelector('.download-btn');
+            if (downloadBtn) {
+                const href = downloadBtn.getAttribute('href');
+                const filename = href.split('/').pop();
+                const hash = hashMap[filename];
+                if (hash) {
+                    const fullHash = 'sha256:' + hash;
+                    icon.setAttribute('data-hash', fullHash);
+                    const tooltip = icon.querySelector('.hash-tooltip');
+                    if (tooltip) {
+                        tooltip.textContent = fullHash;
+                    }
+                }
+            }
+        });
+    } catch (err) {
+        console.error('Error loading hashes:', err);
+    }
+}
 

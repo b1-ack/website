@@ -3,30 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B1ack - შემოწირულობა</title>
+    <title>B1ack - ამინდი</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-    <link rel="stylesheet" href="../css/donate.css">
-
+    <link rel="stylesheet" href="../css/weather.css">
     <meta property="og:title" content="B1ack">
-    <meta property="og:description" content="მხარი დაუჭირეთ პროექტს შემოწირულობით.">
-    <meta name="description" content="მხარი დაუჭირეთ პროექტს შემოწირულობით.">
+    <meta property="og:description" content="შეამოწმეთ ამინდის პროგნოზი ნებისმიერი ქალაქისთვის.">
+    <meta name="description" content="შეამოწმეთ ამინდის პროგნოზი ნებისმიერი ქალაქისთვის.">
     <meta property="og:image" content="https://b1ack.net/favicon.svg">
-    <meta property="og:url" content="https://b1ack.net/ge/donate">
+    <meta property="og:url" content="https://b1ack.net/ge/weather">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="alternate" hreflang="en" href="https://b1ack.net/en/donate">
-    <link rel="alternate" hreflang="ru" href="https://b1ack.net/ru/donate">
-    <link rel="alternate" hreflang="de" href="https://b1ack.net/de/donate">
-    <link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/donate">
-    <link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/donate">
-    <link rel="alternate" hreflang="x-default" href="https://b1ack.net/donate">
-    <link rel="canonical" href="https://b1ack.net/ge/donate">
+    <link rel="alternate" hreflang="en" href="https://b1ack.net/en/weather">
+    <link rel="alternate" hreflang="ru" href="https://b1ack.net/ru/weather">
+    <link rel="alternate" hreflang="de" href="https://b1ack.net/de/weather">
+    <link rel="alternate" hreflang="fr" href="https://b1ack.net/fr/weather">
+    <link rel="alternate" hreflang="ka" href="https://b1ack.net/ge/weather">
+    <link rel="alternate" hreflang="x-default" href="https://b1ack.net/weather">
+    <link rel="canonical" href="https://b1ack.net/ge/weather">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "B1ack",
-      "url": "https://b1ack.net/ge/donate",
+      "url": "https://b1ack.net/ge/weather",
       "description": "სიმშვიდე ყოველთის აქ",
       "isPartOf": {"@type": "WebSite", "url": "https://b1ack.net/ge"}
     }
@@ -38,11 +37,11 @@
             <a href="." class="logo"><img src="../img/b1ack.svg" alt="B1ack Logo"><span class="logo-text">B1ack</span></a>
             <nav class="nav" id="nav">
                 <div class="nav-lang-bar">
-                    <a href="/en/donate" class="nav-lang-btn"><img src="../img/icons/en.png" alt="en"></a>
-                    <a href="/ru/donate" class="nav-lang-btn"><img src="../img/icons/ru.png" alt="ru"></a>
-                    <a href="/de/donate" class="nav-lang-btn"><img src="../img/icons/de.png" alt="de"></a>
-                    <a href="/fr/donate" class="nav-lang-btn"><img src="../img/icons/fr.png" alt="fr"></a>
-                    <a href="/ge/donate" class="nav-lang-btn active"><img src="../img/icons/ge.png" alt="ge"></a>
+                    <a href="/en/weather" class="nav-lang-btn"><img src="../img/icons/en.png" alt="en"></a>
+                    <a href="/ru/weather" class="nav-lang-btn"><img src="../img/icons/ru.png" alt="ru"></a>
+                    <a href="/de/weather" class="nav-lang-btn"><img src="../img/icons/de.png" alt="de"></a>
+                    <a href="/fr/weather" class="nav-lang-btn"><img src="../img/icons/fr.png" alt="fr"></a>
+                    <a href="/ge/weather" class="nav-lang-btn active"><img src="../img/icons/ge.png" alt="ge"></a>
                 </div>
                 <a href="." class="nav-link">მთავარი</a>
                 <a href="https://os.b1ack.net/ge" class="nav-link">სისტემა</a>
@@ -55,13 +54,13 @@
                     </button>
                     <div class="nav-more-menu" id="nav-more-menu">
                         <div class="nav-more-header-section">
-                            <a href="weather" class="nav-link">ამინდი</a>
+                            <a href="weather" class="nav-link active">ამინდი</a>
                             <a href="fingerprint" class="nav-link">ანაბეჭდი</a>
                             <a href="generator" class="nav-link">გენერატორი</a>
                         </div>
                         <div class="nav-more-body-section">
                             <div class="nav-more-grid">
-                                <a href="weather" class="nav-link">ამინდი</a>
+                                <a href="weather" class="nav-link active">ამინდი</a>
                                 <a href="fingerprint" class="nav-link">ანაბეჭდი</a>
                                 <a href="generator" class="nav-link">გენერატორი</a>
                             </div>
@@ -84,7 +83,7 @@
                         <button class="lang-dropdown-item active" data-lang="ge"><img src="../img/icons/ge.png" alt="ge"><span class="lang-name">ქართული</span><span class="lang-check">✓</span></button>
                     </div>
                 </div>
-                <a href="donate" class="control-btn active"><img class="theme-img" src="../img/icons/donate.png" alt="Donate"></a>
+                <a href="donate" class="control-btn"><img class="theme-img" src="../img/icons/donate.png" alt="Donate"></a>
                 <button class="menu-toggle" id="menu-toggle">
                     <span></span>
                     <span></span>
@@ -94,17 +93,55 @@
         </div>
     </header>
     <main>
-        <div class="donate-container">
-            <div class="donate-card">
-                <iframe id='kofiframe' src='https://ko-fi.com/b1acknet/?hidefeed=true&widget=true&embed=true&preview=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='b1acknet'></iframe>
+        <div id="cookie-consent" class="cookie-consent">
+            <h3><span class="cookie-dot"></span>Cookies</h3>
+            <p>ჩვენ არ ვაგროვებთ და არ ვინახავთ თქვენს ქუქიებს.</p>
+            <button class="cookie-btn" onclick="acceptCookies()">მიღება</button>
+        </div>
+        <div class="container" id="app">
+            <div class="wloc-initial" id="wloc-initial">
+                <div class="wloc-prompt">აირჩიეთ ადგილმდებარეობა</div>
+                <div class="wloc-center">
+                    <div id="wloc" class="wloc-bar">
+                        <div class="wloc-input-wrap">
+                            <input class="wloc-input" id="wloc-input" type="text" placeholder="მოძებნეთ ქალაქი..." autocomplete="off">
+                            <button class="wloc-clear" id="wloc-clear">&times;</button>
+                            <div class="wloc-autocomplete" id="wloc-ac"></div>
+                        </div>
+                        <button class="wloc-btn" id="wloc-detect">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+                            განსაზღვრა
+                        </button>
+                    </div>
+                    <div class="wproviders">ამინდის მომწოდებელი: Open-Meteo</div>
+                    <div class="wunits" id="wunits">
+                        <div class="wunits-group">
+                            <span class="wunits-label">ტემპერატურა</span>
+                            <div class="wunits-btns" data-unit="temperature">
+                                <button class="active" data-value="c">&deg;C</button>
+                                <button data-value="f">&deg;F</button>
+                            </div>
+                        </div>
+                        <div class="wunits-group">
+                            <span class="wunits-label">ქარი</span>
+                            <div class="wunits-btns" data-unit="speed">
+                                <button class="active" data-value="kmh">კმ/სთ</button>
+                                <button data-value="mph">მილი/სთ</button>
+                            </div>
+                        </div>
+                        <div class="wunits-group">
+                            <span class="wunits-label">ნალექი</span>
+                            <div class="wunits-btns" data-unit="precipitation">
+                                <button class="active" data-value="mm">მმ</button>
+                                <button data-value="in">დუიმი</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div id="wcontent" style="display:none;"></div>
         </div>
     </main>
-    <div id="cookie-consent" class="cookie-consent">
-        <h3><span class="cookie-dot"></span>Cookies</h3>
-        <p>ჩვენ არ ვაგროვებთ და არ ვინახავთ თქვენს ქუქიებს.</p>
-        <button class="cookie-btn" onclick="acceptCookies()">მიღება</button>
-    </div>
     <footer>
         <div class="footer-container">
             <div class="footer-left">
@@ -123,6 +160,6 @@
             </div>
         </div>
     </footer>
-    <script src="../js/donate.js"></script>
+    <script src="../js/weather.js"></script>
 </body>
 </html>
