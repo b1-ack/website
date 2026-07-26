@@ -649,7 +649,7 @@ function langLoadError() {
 
 async function loadHashes() {
     try {
-        const response = await fetch('hash.json');
+        const response = await fetch('https://raw.githubusercontent.com/b1-ack/website/refs/heads/main/os/hash.json');
         const data = await response.json();
 
         document.querySelectorAll('.os-card').forEach(card => {
