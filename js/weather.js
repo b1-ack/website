@@ -615,7 +615,7 @@ function searchLocations(query) {
 
 function detectLocation() {
     if (!navigator.geolocation) {
-        showLoading(_('geoNotSupported'));
+        detectLocationByIP();
         return;
     }
     showLoading(_('geoDetecting'));
@@ -642,8 +642,38 @@ function detectLocation() {
                 fetchWeather(lat, lon, lat.toFixed(2) + ', ' + lon.toFixed(2));
             });
     }, function() {
-        showLoading(_('geoFailed'));
-    });
+        detectLocationByIP();
+    }, { enableHighAccuracy: false, timeout: 7000, maximumAge: 60000 });
+}
+
+function detectLocationByIP() {
+    showLoading(_('geoDetecting'));
+    fetch('https://1.1.1.1/cdn-cgi/trace')
+        .then(function(r) { return r.text(); })
+        .then(function(t) {
+            const m = t.match(/ip=([\d.]+)/);
+            const ip = m ? m[1] : null;
+            if (!ip) { showLoading(_('geoFailed')); throw new Error('no-ip'); }
+            return fetch('https://ipapi.co/' + ip + '/json/');
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data && data.latitude && data.longitude) {
+                const lat = data.latitude;
+                const lon = data.longitude;
+                const name = (data.city || '') + (data.region ? ', ' + data.region : '') + ', ' + (data.country_name || '');
+                document.getElementById('wloc-input').value = name;
+                document.getElementById('wloc-clear').classList.add('show');
+                autoUnits = detectUnits(data.country_code || '');
+                applyUnitsUI();
+                fetchWeather(lat, lon, name);
+            } else {
+                showLoading(_('geoFailed'));
+            }
+        })
+        .catch(function() {
+            showLoading(_('geoFailed'));
+        });
 }
 
 document.addEventListener('DOMContentLoaded', function() {

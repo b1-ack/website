@@ -283,16 +283,10 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
             submitBtn.innerHTML = langCreating();
             
-            const GITHUB_TOKEN = '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';
-            const GITHUB_OWNER = 'b1-ack';
-            const GITHUB_REPO = 'operating-system';
-            
-            fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues`, {
+            fetch('https://api.b1ack.net/', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `token ${GITHUB_TOKEN}`,
                     'Content-Type': 'application/json',
-                    'Accept': 'application/vnd.github.v3+json'
                 },
                 body: JSON.stringify({
                     title: title,
@@ -467,12 +461,9 @@ function switchEnvironment(button) {
 async function loadGitHubIssues() {
     const GITHUB_OWNER = 'b1-ack';
     const GITHUB_REPO = 'operating-system';
-    const GITHUB_TOKEN = ``;
-
     const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues`;
     const headers = {
         Accept: 'application/vnd.github+json',
-        ...(GITHUB_TOKEN && { Authorization: `token ${GITHUB_TOKEN}` }),
     };
 
     try {
@@ -658,39 +649,34 @@ function langLoadError() {
 
 async function loadHashes() {
     try {
-        const response = await fetch('hash.html');
-        const html = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const rows = doc.querySelectorAll('table tr');
+        const response = await fetch('hash.json');
+        const data = await response.json();
 
-        const hashMap = {};
-        rows.forEach(row => {
-            const cells = row.querySelectorAll('td');
-            if (cells.length === 2) {
-                const filename = cells[0].textContent.trim();
-                const hash = cells[1].textContent.trim();
-                if (filename && hash) {
-                    hashMap[filename] = hash;
+        document.querySelectorAll('.os-card').forEach(card => {
+            const downloadBtn = card.querySelector('.download-btn');
+            const sizeEl = card.querySelector('.file-size');
+            const hashIcon = card.querySelector('.hash-icon');
+            if (!downloadBtn) return;
+            const href = downloadBtn.getAttribute('href');
+            const oldFilename = href.split('/').pop();
+            const info = data.find(item => item.filename === oldFilename);
+            if (!info) return;
+            if (info.url && info.url !== href) {
+                downloadBtn.setAttribute('href', info.url);
+            }
+            if (info.display) {
+                downloadBtn.textContent = info.display;
+            }
+            if (info.hash) {
+                const fullHash = 'sha256:' + info.hash;
+                if (hashIcon) {
+                    hashIcon.setAttribute('data-hash', fullHash);
+                    const tooltip = hashIcon.querySelector('.hash-tooltip');
+                    if (tooltip) tooltip.textContent = fullHash;
                 }
             }
-        });
-
-        document.querySelectorAll('.hash-icon').forEach(icon => {
-            const card = icon.closest('.os-card');
-            const downloadBtn = card.querySelector('.download-btn');
-            if (downloadBtn) {
-                const href = downloadBtn.getAttribute('href');
-                const filename = href.split('/').pop();
-                const hash = hashMap[filename];
-                if (hash) {
-                    const fullHash = 'sha256:' + hash;
-                    icon.setAttribute('data-hash', fullHash);
-                    const tooltip = icon.querySelector('.hash-tooltip');
-                    if (tooltip) {
-                        tooltip.textContent = fullHash;
-                    }
-                }
+            if (info.weight) {
+                if (sizeEl) sizeEl.textContent = '~' + info.weight;
             }
         });
     } catch (err) {

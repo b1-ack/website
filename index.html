@@ -3,15 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme:dark)">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme:light)">
     <title>B1ack</title>
     <meta name="robots" content="noindex">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preconnect" href="https://b1ack.net">
+    <link rel="preconnect" href="https://github.com">
+    <meta name="author" content="B1ack">
+    <meta name="keywords" content="B1ack, B1ackOS, calmness, serenity, open source, linux">
+    <meta name="description" content="Calmness always here">
     <meta property="og:title" content="B1ack">
     <meta property="og:description" content="Calmness always here">
     <meta property="og:image" content="https://b1ack.net/favicon.svg">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
     <meta property="og:url" content="https://b1ack.net/">
     <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:site_name" content="B1ack">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@B1ackOS">
     <link rel="alternate" hreflang="en" href="https://b1ack.net/en">
     <link rel="alternate" hreflang="ru" href="https://b1ack.net/ru">
     <link rel="alternate" hreflang="de" href="https://b1ack.net/de">
@@ -19,13 +32,28 @@
     <link rel="alternate" hreflang="ka" href="https://b1ack.net/ge">
     <link rel="alternate" hreflang="x-default" href="https://b1ack.net/">
     <script type="application/ld+json">
-    {
+    [{
       "@context": "https://schema.org",
-      "@type": "WebSite",
+      "@type": "Organization",
+      "@id": "https://b1ack.net/#organization",
       "name": "B1ack",
       "url": "https://b1ack.net/",
-      "description": "Calmness always here"
-    }
+      "logo": "https://b1ack.net/favicon.svg",
+      "sameAs": [
+        "https://github.com/b1-ack",
+        "https://discord.gg/NxZEbtEhAp",
+        "https://t.me/B1ackOS"
+      ]
+    },{
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://b1ack.net/#website",
+      "name": "B1ack",
+      "url": "https://b1ack.net/",
+      "description": "Calmness always here",
+      "publisher": {"@id": "https://b1ack.net/#organization"},
+      "inLanguage": "en"
+    }]
     </script>
     <script>
         (function() {
