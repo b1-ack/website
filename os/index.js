@@ -651,34 +651,58 @@ async function loadHashes() {
     try {
         const response = await fetch('https://raw.githubusercontent.com/b1-ack/website/refs/heads/main/os/hash.json');
         const data = await response.json();
+        const files = data.files;
+
+        const filenameToKey = {
+            'B1ackOS-i386.iso': 'i386.iso',
+            'B1ackOS-amd64.iso': 'amd64.iso',
+            'B1ackOS-arm64.iso': 'arm64.iso',
+        };
 
         document.querySelectorAll('.os-card').forEach(card => {
             const downloadBtn = card.querySelector('.download-btn');
-            const sizeEl = card.querySelector('.file-size');
-            const hashIcon = card.querySelector('.hash-icon');
             if (!downloadBtn) return;
             const href = downloadBtn.getAttribute('href');
-            const oldFilename = href.split('/').pop();
-            const info = data.find(item => item.filename === oldFilename);
-            if (!info) return;
-            if (info.url && info.url !== href) {
-                downloadBtn.setAttribute('href', info.url);
+            if (!href) return;
+            const filename = href.split('/').pop();
+            const key = filenameToKey[filename];
+            if (!key || !files[key]) return;
+
+            const fileData = files[key];
+
+            if (fileData.url) {
+                downloadBtn.href = fileData.url;
             }
-            if (info.display) {
-                downloadBtn.textContent = info.display;
-            }
-            if (info.hash) {
-                const fullHash = 'sha256:' + info.hash;
-                if (hashIcon) {
-                    hashIcon.setAttribute('data-hash', fullHash);
-                    const tooltip = hashIcon.querySelector('.hash-tooltip');
-                    if (tooltip) tooltip.textContent = fullHash;
+
+            if (fileData.size) {
+                const sizeEl = card.querySelector('.file-size');
+                if (sizeEl) {
+                    sizeEl.textContent = fileData.size;
                 }
             }
-            if (info.weight) {
-                if (sizeEl) sizeEl.textContent = '~' + info.weight;
+
+            if (fileData.hash) {
+                const hashIcon = card.querySelector('.hash-icon');
+                if (hashIcon) {
+                    const fullHash = 'sha256:' + fileData.hash;
+                    hashIcon.setAttribute('data-hash', fullHash);
+                    const tooltip = hashIcon.querySelector('.hash-tooltip');
+                    if (tooltip) {
+                        tooltip.textContent = fullHash;
+                    }
+                }
             }
         });
+
+        const cinnamonBtn = document.querySelector('.cinnamon-download-btn');
+        if (cinnamonBtn && files['cinnamon-amd64.iso'] && files['cinnamon-amd64.iso'].url) {
+            cinnamonBtn.href = files['cinnamon-amd64.iso'].url;
+        }
+
+        const rufusBtn = document.querySelector('.rufus-btn');
+        if (rufusBtn && files['rufus.exe'] && files['rufus.exe'].url) {
+            rufusBtn.href = files['rufus.exe'].url;
+        }
     } catch (err) {
         console.error('Error loading hashes:', err);
     }
