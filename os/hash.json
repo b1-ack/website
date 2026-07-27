@@ -1,22 +1,25 @@
 {
   "files": {
-    "B1ackOS-amd64.iso": {
-      "hash": "5",
-      "url": "1",
-      "size": "7 GB"
+    "amd64.iso": {
+      "hash": "1",
+      "url": "amd64",
+      "size": "~77"
     },
-    "B1ackOS-i386.iso": {
-      "hash": "6",
-      "url": "2",
+    "i386.iso": {
+      "hash": "2",
+      "url": "i386",
+      "size": "7 iB"
+    },
+    "arm64.iso": {
+      "hash": "3",
+      "url": "arm64",
       "size": "777 GB"
     },
-    "B1ackOS-arm64.iso": {
-      "hash": "7",
-      "url": "3",
-      "size": "~77 GB"
+    "cinnamon-amd64.iso": {
+      "url": "https://Cinnamon"
     },
-    "B1ackOS-amd64-Cinnamon.iso": {
-      "url": "4"
+    "rufus.exe": {
+      "url": "https://github.com/pbatard/rufus/releases/download/v4.17/rufus-4.15_x86.exe"
     }
   }
 }
