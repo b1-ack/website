@@ -1,6 +1,7 @@
 const GITHUB_OWNER = 'b1-ack';
 const GITHUB_REPO = 'operating-system';
 const GITHUB_TOKEN = 'github_pat_TOKEN';
+const TURNSTILE_SECRET_KEY = 'PASTE_YOUR_SECRET_KEY_HERE';
 const ALLOWED_ORIGINS = [
   'https://b1ack.net',
   'https://os.b1ack.net',
@@ -90,6 +91,34 @@ async function handleIssue(request, headers) {
   }
 
   const labels = Array.isArray(body.labels) ? body.labels.slice(0, 10) : ['question'];
+
+  const cfToken = body.cfToken || '';
+  if (!cfToken) {
+    return jsonResponse({ error: 'Captcha verification failed' }, 403, headers);
+  }
+
+  const ip = request.headers.get('CF-Connecting-IP') || '';
+  const formData = new FormData();
+  formData.append('secret', TURNSTILE_SECRET_KEY);
+  formData.append('response', cfToken);
+  if (ip) {
+    formData.append('remoteip', ip);
+  }
+
+  let verifyData;
+  try {
+    const verifyResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      body: formData,
+    });
+    verifyData = await verifyResponse.json();
+  } catch (err) {
+    return jsonResponse({ error: 'Captcha verification failed' }, 403, headers);
+  }
+
+  if (!verifyData.success) {
+    return jsonResponse({ error: 'Captcha verification failed' }, 403, headers);
+  }
 
   try {
     const response = await fetch(
