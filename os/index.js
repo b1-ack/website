@@ -229,26 +229,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (askQuestionBtn && issueModal) {
         askQuestionBtn.addEventListener('click', function() {
-            issueModal.style.display = 'block';
+            issueModal.classList.add('open');
             initCaptcha();
+            fitIssueModalToScreen();
         });
     }
 
     if (closeModal && issueModal) {
         closeModal.addEventListener('click', function() {
-            issueModal.style.display = 'none';
+            issueModal.classList.remove('open');
         });
     }
 
     if (issueModal && successModal) {
         window.addEventListener('click', function(event) {
             if (event.target === issueModal) {
-                issueModal.style.display = 'none';
+                issueModal.classList.remove('open');
             }
             if (event.target === successModal) {
                 successModal.style.display = 'none';
             }
         });
+    }
+
+    function fitIssueModalToScreen() {
+        if (!issueModal || !issueModal.classList.contains('open')) return;
+        const content = issueModal.querySelector('.modal-content');
+        if (!content) return;
+
+        const viewport = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+        const headerEl = document.querySelector('header');
+        const headerHeight = headerEl ? headerEl.offsetHeight : 60;
+        const modalStyle = getComputedStyle(issueModal);
+        const padTop = parseFloat(modalStyle.paddingTop) || 0;
+        const padBottom = parseFloat(modalStyle.paddingBottom) || 0;
+        const available = viewport - headerHeight - padTop - padBottom;
+
+        content.style.transform = '';
+        content.style.maxHeight = '';
+        content.style.alignSelf = '';
+
+        if (content.scrollHeight <= available) return;
+
+        content.style.maxHeight = 'none';
+        const naturalHeight = content.offsetHeight;
+
+        if (available > 0 && naturalHeight > available) {
+            content.style.alignSelf = 'flex-start';
+            content.style.transformOrigin = 'center top';
+            content.style.transform = 'scale(' + (available / naturalHeight) + ')';
+        }
+    }
+
+    if (issueModal) {
+        const modalContent = issueModal.querySelector('.modal-content');
+        if (modalContent && 'ResizeObserver' in window) {
+            new ResizeObserver(fitIssueModalToScreen).observe(modalContent);
+        }
+        window.addEventListener('resize', fitIssueModalToScreen);
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', fitIssueModalToScreen);
+        }
     }
 
     if (labelOptions.length) {
@@ -342,7 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 if (data.html_url) {
-                    issueModal.style.display = 'none';
+                    issueModal.classList.remove('open');
                     successModal.style.display = 'block';
                     issueForm.reset();
                     resetCaptcha();
