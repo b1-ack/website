@@ -14,6 +14,44 @@ function getCurrentLang() {
 
 const currentLang = getCurrentLang();
 
+let captchaToken = '';
+let captchaReady = false;
+
+function initCaptcha() {
+    const container = document.getElementById('captchaContainer');
+    if (!container || captchaReady) return;
+    captchaReady = true;
+    fetch('https://raw.githubusercontent.com/b1-ack/website/refs/heads/main/os/site-key.json')
+        .then(r => r.json())
+        .then(data => {
+            const siteKey = (data.siteKey || '').trim();
+            if (!siteKey) return;
+            let attempts = 0;
+            const tryRender = () => {
+                if (window.turnstile) {
+                    window.turnstile.render(container, {
+                        sitekey: siteKey,
+                        theme: document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark',
+                        callback: function (token) { captchaToken = token; },
+                        'expired-callback': function () { captchaToken = ''; },
+                        'error-callback': function () { captchaToken = ''; }
+                    });
+                } else if (attempts++ < 50) {
+                    setTimeout(tryRender, 200);
+                }
+            };
+            tryRender();
+        })
+        .catch(() => {});
+}
+
+function resetCaptcha() {
+    captchaToken = '';
+    if (window.turnstile) {
+        window.turnstile.reset();
+    }
+}
+
 function switchTab(tabName) {
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -192,6 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (askQuestionBtn && issueModal) {
         askQuestionBtn.addEventListener('click', function() {
             issueModal.style.display = 'block';
+            initCaptcha();
         });
     }
 
@@ -280,6 +319,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
+            if (!captchaToken) {
+                alert(langCaptchaError());
+                return;
+            }
+            
             submitBtn.disabled = true;
             submitBtn.innerHTML = langCreating();
             
@@ -291,7 +335,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({
                     title: title,
                     body: description,
-                    labels: selectedLabels.length > 0 ? selectedLabels : ['question']
+                    labels: selectedLabels.length > 0 ? selectedLabels : ['question'],
+                    cfToken: captchaToken
                 })
             })
             .then(response => response.json())
@@ -300,6 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     issueModal.style.display = 'none';
                     successModal.style.display = 'block';
                     issueForm.reset();
+                    resetCaptcha();
                     selectedLabels = [];
                     labelOptions.forEach(option => option.classList.remove('selected'));
                     loadGitHubIssues();
@@ -308,10 +354,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         successModal.style.display = 'none';
                     }, 2000);
                 } else {
-                    throw new Error(data.message || langIssueError());
+                    throw new Error(data.error || data.message || langIssueError());
                 }
             })
             .catch(error => {
+                resetCaptcha();
                 alert(langCreateError() + error.message);
             })
             .finally(() => {
@@ -566,6 +613,17 @@ function langSubmitError() {
         'de': 'Bitte geben Sie einen Titel ein',
         'fr': 'Veuillez saisir un titre',
         'ge': 'გთხოვთ შეიყვანოთ სათაური'
+    };
+    return msgs[currentLang] || msgs['en'];
+}
+
+function langCaptchaError() {
+    const msgs = {
+        'ru': 'Пожалуйста, пройдите проверку капчи',
+        'en': 'Please complete the captcha',
+        'de': 'Bitte lösen Sie das Captcha',
+        'fr': 'Veuillez compléter le captcha',
+        'ge': 'გთხოვთ გაიაროთ კაპჩა'
     };
     return msgs[currentLang] || msgs['en'];
 }

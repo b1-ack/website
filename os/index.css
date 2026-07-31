@@ -1414,6 +1414,17 @@ h2:after {
     border-radius: 50%;
 }
 
+#captchaContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 65px;
+}
+
+.cf-turnstile {
+    max-width: 100%;
+}
+
 .submit-btn {
     background-color: var(--success-color);
     color: white;
