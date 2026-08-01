@@ -11,8 +11,8 @@
       "size": "~1.1 GB"
     },
     "arm64.iso": {
-      "hash": "b817c8ace66f79cdcdee40c5c8e5a829a4f3be60cd01a1c0f1d77b04b4cddd66",
-      "url": "https://github.com/b1-ack/operating-system/releases/download/Rolling/B1ackOS-arm64.iso",
+      "hash": "d8c0d7b9a5d4a055bbe5e24262ff180b40a8c3203752032cd38f8fa75af559d5",
+      "url": "https://github.com/b1-ack/operating-system/releases/download/Rolling/B1ackOS-2026.08.02-arm64.iso",
       "size": "~1.9 GB"
     },
     "cinnamon-amd64.iso": {
