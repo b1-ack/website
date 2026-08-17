@@ -3,32 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="dark light">
-    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme:dark)">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme:light)">
     <title>B1ackOS GNU/Linux</title>
     <link rel="icon" type="image/svg+xml" href="https://b1ack.net/favicon.svg">
-    <link rel="preconnect" href="https://b1ack.net">
-    <link rel="preconnect" href="https://github.com">
     <link rel="stylesheet" href="index.css">
-    <meta name="author" content="B1ack">
-    <meta name="keywords" content="B1ackOS, GNU/Linux, операционная система, открытое ПО, linux, свободное ПО">
     <meta property="og:title" content="B1ackOS">
     <meta property="og:description" content="Информация и скачивание системы B1ackOS.">
     <meta name="description" content="Информация и скачивание системы B1ackOS.">
     <meta property="og:image" content="https://b1ack.net/favicon.svg">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
-    <meta property="og:image:type" content="image/svg+xml">
-    <meta property="og:url" content="https://os.b1ack.net/ru">
+    <meta property="og:url" content="https://os.b1ack.net/ru.html">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="B1ackOS">
-    <meta property="og:locale" content="ru_RU">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@B1ackOS">
-    <meta name="twitter:title" content="B1ackOS">
-    <meta name="twitter:description" content="Информация и скачивание системы B1ackOS.">
-    <meta name="twitter:image" content="https://b1ack.net/favicon.svg">
     <link rel="alternate" hreflang="en" href="https://os.b1ack.net/en">
     <link rel="alternate" hreflang="ru" href="https://os.b1ack.net/ru">
     <link rel="alternate" hreflang="de" href="https://os.b1ack.net/de">
@@ -44,7 +28,7 @@
       "operatingSystem": "GNU/Linux",
       "applicationCategory": "OperatingSystem",
       "description": "B1ackOS GNU/Linux",
-      "url": "https://os.b1ack.net/ru",
+      "url": "https://os.b1ack.net/ru.html",
       "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
       "screenshot": "https://b1ack.net/img/b1ack-cinnamon.png"
     }
@@ -294,6 +278,10 @@
                         </div>
                         <div class="cinnamon-download-buttons">
                             <a href="https://os.b1ack.net/iso/B1ackOS-amd64-Cinnamon.iso" class="download-btn cinnamon-download-btn">Скачать</a>
+                            <div class="cinnamon-nvidia-support">
+                                <img src="https://b1ack.net/img/icons/nvidia.png" alt="NVIDIA" class="cinnamon-nvidia-icon">
+                                <span>Поддержка NVIDIA</span>
+                            </div>
                         </div>
                         <div class="environment-command cinnamon-command" data-command="sudo apt install -y cinnamon" style="display: none;">
                             sudo apt install -y cinnamon
@@ -491,10 +479,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <div class="cf-turnstile" id="captchaContainer"></div>
-                </div>
                 
                 <button type="submit" class="submit-btn" id="submitIssue">Создать вопрос</button>
             </form>
@@ -529,7 +513,6 @@
         <button class="cookie-btn" onclick="acceptCookies()">Принять</button>
     </div>
 
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
     <script src="index.js"></script>
 </body>
 </html>
