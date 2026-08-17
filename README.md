@@ -100,7 +100,7 @@ Released under the **[GNU General Public License v3.0](https://github.com/b1-ack
 
 Check out **[B1ackOS GNU/Linux](https://github.com/b1-ack/operating-system)**, a privacy-focused, Debian-based operating system built for simplicity and security.
 
-[![Website](https://img.shields.io/badge/Website-os.b1ack.net-black)](https://os.b1ack.net/)
+[![Website](https://img.shields.io/badge/Website-os.b1ack.net-black)](https://os.b1ack.net)
 
 </div>
 
