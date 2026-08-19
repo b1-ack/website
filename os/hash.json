@@ -1,8 +1,8 @@
 {
   "files": {
     "amd64.iso": {
-      "hash": "3253d475957eefe735e97167ee178ec3a2345ce7523041f40e1503629992e2ee",
-      "url": "https://os.b1ack.net/iso/B1ackOS-2026.08.18-amd64.iso",
+      "hash": "2313ca27bb254fb1aae56d487871711f02c3707d4f9310818b8f3b8487a81889",
+      "url": "https://os.b1ack.net/iso/B1ackOS-2026.08.19-amd64.iso",
       "size": "~2.1 GB"
     },
     "i386.iso": {
@@ -16,7 +16,7 @@
       "size": "~1.9 GB"
     },
     "cinnamon-amd64.iso": {
-      "url": "https://os.b1ack.net/iso/B1ackOS-2026.08.18-amd64-Cinnamon.iso"
+      "url": "https://os.b1ack.net/iso/B1ackOS-2026.08.19-amd64-Cinnamon.iso"
     },
     "rufus.exe": {
       "url": "https://github.com/pbatard/rufus/releases/download/v4.15/rufus-4.15_x86.exe"
