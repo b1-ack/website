@@ -14,44 +14,6 @@ function getCurrentLang() {
 
 const currentLang = getCurrentLang();
 
-let captchaToken = '';
-let captchaReady = false;
-
-function initCaptcha() {
-    const container = document.getElementById('captchaContainer');
-    if (!container || captchaReady) return;
-    captchaReady = true;
-    fetch('https://raw.githubusercontent.com/b1-ack/website/refs/heads/main/os/site-key.json')
-        .then(r => r.json())
-        .then(data => {
-            const siteKey = (data.siteKey || '').trim();
-            if (!siteKey) return;
-            let attempts = 0;
-            const tryRender = () => {
-                if (window.turnstile) {
-                    window.turnstile.render(container, {
-                        sitekey: siteKey,
-                        theme: document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark',
-                        callback: function (token) { captchaToken = token; },
-                        'expired-callback': function () { captchaToken = ''; },
-                        'error-callback': function () { captchaToken = ''; }
-                    });
-                } else if (attempts++ < 50) {
-                    setTimeout(tryRender, 200);
-                }
-            };
-            tryRender();
-        })
-        .catch(() => {});
-}
-
-function resetCaptcha() {
-    captchaToken = '';
-    if (window.turnstile) {
-        window.turnstile.reset();
-    }
-}
-
 function switchTab(tabName) {
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -66,7 +28,7 @@ function switchTab(tabName) {
     document.getElementById('tab-' + tabName).classList.add('active');
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
     const themeToggle = document.getElementById('theme-toggle');
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.getElementById('nav');
@@ -229,67 +191,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (askQuestionBtn && issueModal) {
         askQuestionBtn.addEventListener('click', function() {
-            issueModal.classList.add('open');
-            initCaptcha();
-            fitIssueModalToScreen();
+            issueModal.style.display = 'block';
         });
     }
 
     if (closeModal && issueModal) {
         closeModal.addEventListener('click', function() {
-            issueModal.classList.remove('open');
+            issueModal.style.display = 'none';
         });
     }
 
     if (issueModal && successModal) {
         window.addEventListener('click', function(event) {
             if (event.target === issueModal) {
-                issueModal.classList.remove('open');
+                issueModal.style.display = 'none';
             }
             if (event.target === successModal) {
                 successModal.style.display = 'none';
             }
         });
-    }
-
-    function fitIssueModalToScreen() {
-        if (!issueModal || !issueModal.classList.contains('open')) return;
-        const content = issueModal.querySelector('.modal-content');
-        if (!content) return;
-
-        const viewport = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-        const headerEl = document.querySelector('header');
-        const headerHeight = headerEl ? headerEl.offsetHeight : 60;
-        const modalStyle = getComputedStyle(issueModal);
-        const padTop = parseFloat(modalStyle.paddingTop) || 0;
-        const padBottom = parseFloat(modalStyle.paddingBottom) || 0;
-        const available = viewport - headerHeight - padTop - padBottom;
-
-        content.style.transform = '';
-        content.style.maxHeight = '';
-        content.style.alignSelf = '';
-
-        if (content.scrollHeight <= available) return;
-
-        content.style.maxHeight = 'none';
-        const naturalHeight = content.offsetHeight;
-
-        if (available > 0 && naturalHeight > available) {
-            content.style.alignSelf = 'flex-start';
-            content.style.transformOrigin = 'center top';
-            content.style.transform = 'scale(' + (available / naturalHeight) + ')';
-        }
-    }
-
-    if (issueModal) {
-        const modalContent = issueModal.querySelector('.modal-content');
-        if (modalContent && 'ResizeObserver' in window) {
-            new ResizeObserver(fitIssueModalToScreen).observe(modalContent);
-        }
-        window.addEventListener('resize', fitIssueModalToScreen);
-        if (window.visualViewport) {
-            window.visualViewport.addEventListener('resize', fitIssueModalToScreen);
-        }
     }
 
     if (labelOptions.length) {
@@ -360,11 +280,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            if (!captchaToken) {
-                alert(langCaptchaError());
-                return;
-            }
-            
             submitBtn.disabled = true;
             submitBtn.innerHTML = langCreating();
             
@@ -376,17 +291,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({
                     title: title,
                     body: description,
-                    labels: selectedLabels.length > 0 ? selectedLabels : ['question'],
-                    cfToken: captchaToken
+                    labels: selectedLabels.length > 0 ? selectedLabels : ['question']
                 })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.html_url) {
-                    issueModal.classList.remove('open');
+                    issueModal.style.display = 'none';
                     successModal.style.display = 'block';
                     issueForm.reset();
-                    resetCaptcha();
                     selectedLabels = [];
                     labelOptions.forEach(option => option.classList.remove('selected'));
                     loadGitHubIssues();
@@ -395,11 +308,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         successModal.style.display = 'none';
                     }, 2000);
                 } else {
-                    throw new Error(data.error || data.message || langIssueError());
+                    throw new Error(data.message || langIssueError());
                 }
             })
             .catch(error => {
-                resetCaptcha();
                 alert(langCreateError() + error.message);
             })
             .finally(() => {
@@ -474,7 +386,13 @@ document.addEventListener('DOMContentLoaded', () => {
             lightboxImg.src = environmentImages[currentImageIndex].src;
         }
     });
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
 
 function setTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
@@ -654,17 +572,6 @@ function langSubmitError() {
         'de': 'Bitte geben Sie einen Titel ein',
         'fr': 'Veuillez saisir un titre',
         'ge': 'გთხოვთ შეიყვანოთ სათაური'
-    };
-    return msgs[currentLang] || msgs['en'];
-}
-
-function langCaptchaError() {
-    const msgs = {
-        'ru': 'Пожалуйста, пройдите проверку капчи',
-        'en': 'Please complete the captcha',
-        'de': 'Bitte lösen Sie das Captcha',
-        'fr': 'Veuillez compléter le captcha',
-        'ge': 'გთხოვთ გაიაროთ კაპჩა'
     };
     return msgs[currentLang] || msgs['en'];
 }
