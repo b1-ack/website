@@ -1,4 +1,4 @@
-[EN] [RU]
+[**EN**] [[RU](https://github.com/b1-ack/website/blob/main/README_ru.md)]
 
 <div align="center">
 
