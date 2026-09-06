@@ -1,8 +1,8 @@
 {
   "files": {
     "amd64.iso": {
-      "hash": "2313ca27bb254fb1aae56d487871711f02c3707d4f9310818b8f3b8487a81889",
-      "url": "https://os.b1ack.net/iso/B1ackOS-2026.08.19-amd64.iso",
+      "hash": "18ab9387d671c6b78040e407b40d690732cc920cc0108a62dc3c72e627be1f1f",
+      "url": "https://os.b1ack.net/iso/B1ackOS-2026.09.06-amd64.iso",
       "size": "~2.1 GB"
     },
     "i386.iso": {
