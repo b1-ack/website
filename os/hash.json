@@ -6,8 +6,8 @@
       "size": "~2.2 GB"
     },
     "i386.iso": {
-      "hash": "295c2dad80f177a21ba5f427006f27f84f39a817374d8396ef53961b8007556d",
-      "url": "https://github.com/b1-ack/operating-system/releases/download/Rolling/B1ackOS-2026.08.18-i386.iso",
+      "hash": "0b654c3eee42d0c03a6548747b20843275e059847bf4ad497699d44e42e773b7",
+      "url": "https://github.com/b1-ack/operating-system/releases/download/Rolling/B1ackOS-2026.11.08-i386.iso",
       "size": "~1.1 GB"
     },
     "arm64.iso": {
